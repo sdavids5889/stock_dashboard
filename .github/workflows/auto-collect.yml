@@ -1,12 +1,16 @@
 name: Daily Info Collector
 
+# 2026년 깃허브 정책에 맞춘 Node.js 24 강제 가동 환경 변수
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 on:
   schedule:
-    - cron: '0 22 * * *' # 매일 한국 시간 오전 7시 (UTC 22:00)
-  workflow_dispatch: # 깃허브 웹사이트에서 수동으로 실행 버튼을 누를 수 있게 해주는 옵션
+    - cron: '0 22 * * *' # 매일 한국 시간 아침 7시 자동 가동 (UTC 22:00)
+  workflow_dispatch:     # GitHub 웹 UI에서 [Run workflow] 버튼으로 수동 실행 허용
 
 permissions:
-  contents: write # 스크립트가 새 마크다운 글을 쓰고 커밋할 수 있는 권한 부여
+  contents: write        # 봇이 레포지토리에 새 마크다운 파일을 생성/커밋할 수 있는 쓰기 권한
 
 jobs:
   collect-and-summarize:
@@ -14,6 +18,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 안전한 커밋 관리를 위해 전체 히스토리 가져오기
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -34,3 +40,5 @@ jobs:
         with:
           commit_message: "chore: 패시브 파이프라인 자동 콘텐츠 추가 🤖"
           file_pattern: 'src/content/blog/*.md'
+          commit_user_name: 'github-actions[bot]'
+          commit_user_email: 'github-actions[bot]@users.noreply.github.com'
