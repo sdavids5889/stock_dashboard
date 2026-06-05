@@ -26,10 +26,12 @@ class SummaryResponse(TypedDict):
     summary_3: str
     tags: list[str]
 
-# 수집할 RSS 피드 리스트 (원하는 주소를 자유롭게 추가 가능)
+# 수집할 RSS 피드 리스트 (주식 관련 뉴스로 변경)
 RSS_FEEDS = [
-    "https://news.hada.io/rss",                     # GeekNews
-    "https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko" # 구글 뉴스 헤드라인
+    "https://rss.etoday.co.kr/SectionCode/SectionID.php?secid=6000", # 이투데이 증권
+    "https://www.sedaily.com/RSS/seda_05.xml",                       # 서울경제 증권
+    "https://www.hankyung.com/feed/stock",                          # 한국경제 증권
+    "https://news.google.com/rss/search?q=%EC%A3%BC%EC%8B%9D&hl=ko&gl=KR&ceid=KR:ko" # 구글 뉴스 - '주식' 검색
 ]
 
 OUTPUT_DIR = "src/content/blog"
