@@ -71,7 +71,49 @@ def summarize_with_gemini(title, description) -> SummaryResponse:
 def main():
     now_kst = datetime.now(KST)
     print(f"🚀 자동 정보 수집 엔진 가동 (KST: {now_kst.strftime('%Y-%m-%d %H:%M:%S')})")
-    
+
+    def fetch_full_article_content(url: str) -> str:
+        """주어진 URL에서 기사 본문 텍스트를 추출합니다."""
+        try:
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+            response = requests.get(url, headers=headers, timeout=10)
+            response.raise_for_status()  # HTTP 오류 발생 시 예외 발생
+
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            # 스크립트, 스타일 등 불필요한 태그 제거
+            for script_or_style in soup(["script", "style", "header", "footer", "nav", ".nav", "#nav", ".header", "#header", ".footer", "#footer"]):
+                script_or_style.decompose()
+
+            # 기사 본문으로 추정되는 요소들을 우선적으로 찾기
+            # 흔히 사용되는 클래스나 태그들을 우선순위로 탐색 (대소문자 구분 없음)
+            article_body = soup.find('article') or \
+                           soup.find('main') or \
+                           soup.find('div', class_=re.compile(r'content|article|post|body', re.I)) or \
+                           soup.find('section', class_=re.compile(r'content|article|post|body', re.I))
+
+            if article_body:
+                # 찾은 본문 요소 내의 텍스트 추출
+                text = article_body.get_text(separator='\n', strip=True)
+                # 너무 짧은 텍스트는 유효하지 않다고 판단 (최소 200자 이상)
+                if len(text) > 200:
+                    return text
+            
+            # 특정 본문 영역을 찾지 못했다면, 모든 텍스트에서 추출
+            full_text = soup.get_text(separator='\n', strip=True)
+            if len(full_text) > 200:
+                return full_text
+
+            return "" # 적절한 본문을 찾지 못함
+        except requests.exceptions.RequestException as e:
+            print(f"⚠️ URL 접근 오류 ({url}): {e}")
+            return ""
+        except Exception as e:
+            print(f"⚠️ HTML 파싱 또는 본문 추출 오류 ({url}): {e}")
+            return ""
+
     for url in RSS_FEEDS:
         feed = feedparser.parse(url)
         feed_title = feed.feed.get('title', url)
