@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content'; // 1. render 임포트 추가
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry); // 2. Astro 6.0 최신 문법으로 변경
 ---
 
 <html lang="ko">
