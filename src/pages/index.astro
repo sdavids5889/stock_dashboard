@@ -6,6 +6,13 @@ const allPosts = await getCollection('blog');
 
 // 2. 최신 날짜 순(pubDate 내림차순)으로 정렬
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// 모든 고유 태그 수집 및 정렬
+const allTags = new Set<string>();
+sortedPosts.forEach(post => {
+  post.data.tags.forEach(tag => allTags.add(tag));
+});
+const uniqueTags = Array.from(allTags).sort();
 ---
 
 <html lang="ko">
@@ -16,12 +23,17 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pu
     <style>
       body { font-family: system-ui, sans-serif; background: #f8fafc; color: #0f172a; max-width: 1200px; margin: 0 auto; padding: 2rem; }
       .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-      .card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+      .card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, opacity 0.3s ease-in-out, max-height 0.3s ease-in-out, padding 0.3s ease-in-out, margin 0.3s ease-in-out; overflow: hidden; }
       .card:hover { transform: translateY(-4px); }
+      .card.hidden { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; transform: translateY(-10px); pointer-events: none; }
       .title { font-size: 1.2rem; font-weight: bold; margin: 0 0 0.5rem 0; color: #1e293b; line-height: 1.4; }
       .desc { font-size: 0.95rem; color: #64748b; line-height: 1.5; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
       .meta { font-size: 0.85rem; color: #94a3b8; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
       .tag { background: #e2e8f0; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-right: 0.3rem; color: #475569; }
+      .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; margin-bottom: 1.5rem; }
+      .filter-tag { background: #e2e8f0; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease-in-out; color: #475569; border: none; }
+      .filter-tag:hover { background: #cbd5e1; }
+      .filter-tag.active { background: #3b82f6; color: white; font-weight: bold; }
     </style>
   </head>
   <body>
@@ -29,6 +41,13 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pu
       <h1>🤖 AI 패시브 요약 대시보드</h1>
       <p>매일 아침 자동으로 수집 및 요약되는 나만의 테크/트렌드 아카이브</p>
     </header>
+
+    <nav class="filter-bar" aria-label="태그 필터">
+      <button class="filter-tag active" data-tag="all">전체보기</button>
+      {uniqueTags.map(tag => (
+        <button class="filter-tag" data-tag={tag}>{tag}</button>
+      ))}
+    </nav>
 
     <main class="grid">
       {sortedPosts.length === 0 ? (
@@ -53,5 +72,35 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pu
         ))
       )}
     </main>
+
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const filterButtons = document.querySelectorAll('.filter-tag');
+        const articleCards = document.querySelectorAll('.card');
+
+        filterButtons.forEach(button => {
+          button.addEventListener('click', (event) => {
+            const selectedTag = event.target.dataset.tag;
+
+            // 모든 버튼의 active 클래스를 제거하고 클릭된 버튼에 추가
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            articleCards.forEach(card => {
+              const tagsContainer = card.querySelector('div[style*="margin-top: 0.5rem; margin-bottom: 1rem;"]');
+              if (tagsContainer) {
+                const cardTags = Array.from(tagsContainer.querySelectorAll('.tag')).map(tagSpan => tagSpan.textContent.replace('#', ''));
+
+                if (selectedTag === 'all' || cardTags.includes(selectedTag)) {
+                  card.classList.remove('hidden');
+                } else {
+                  card.classList.add('hidden');
+                }
+              }
+            });
+          });
+        });
+      });
+    </script>
   </body>
 </html>
