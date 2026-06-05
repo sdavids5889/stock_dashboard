@@ -3,6 +3,8 @@ import hashlib
 import json
 import re
 from datetime import datetime
+import requests
+from bs4 import BeautifulSoup
 import zoneinfo
 import feedparser
 import google.generativeai as genai
@@ -90,7 +92,18 @@ def main():
             
             # 요약 데이터 요청
             entry_description = entry.get('summary', entry.get('description', ''))
-            data = summarize_with_gemini(entry.title, entry_description)
+            
+            # 🔗 원문 URL에서 전체 기사 내용을 가져오려고 시도
+            full_article_text = fetch_full_article_content(original_url)
+            
+            # 전체 기사 내용이 있으면 사용하고, 없으면 RSS에서 가져온 요약 사용
+            content_to_summarize = full_article_text if full_article_text else entry_description
+            
+            if not content_to_summarize:
+                print(f"⚠️ 요약할 내용이 없습니다. 스킵: {entry.title}")
+                continue
+                
+            data = summarize_with_gemini(entry.title, content_to_summarize)
             if not data:
                 continue
                 

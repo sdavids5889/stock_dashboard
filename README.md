@@ -11,7 +11,7 @@
 ├── public/                    # 정적 파일 (파비콘 등)
 │   └── favicon.svg
 ├── scripts/                   # Python 스크립트 및 관련 파일
-│   ├── collect_script.py      # 콘텐츠 수집 및 요약 스크립트
+│   ├── collect_script.py      # RSS 피드 및 원문 페이지를 크롤링하여 콘텐츠 수집 및 요약 스크립트
 │   └── requirements.txt       # Python 의존성
 ├── src/
 │   ├── assets/                # 이미지, SVG 등 정적 자산
@@ -54,6 +54,8 @@ npm install
 ```bash
 pip install -r scripts/requirements.txt
 ```
+
+새로운 크롤링 기능을 위해 `requests`와 `beautifulsoup4` 라이브러리가 추가되었습니다.
 
 ### 2. 환경 변수 설정
 
