@@ -23,3 +23,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .aider*
+
+# virtual environment for aider
+venv_aider/
