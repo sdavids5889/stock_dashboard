@@ -9,6 +9,7 @@ import {
   Tag,
   LayoutGrid,
 } from 'lucide-react';
+import FinancialTicker from './FinancialTicker';
 import type {
   Article,
   DailyMarketData,
@@ -195,7 +196,12 @@ export default function Dashboard({
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-indigo-100">
-      <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-slate-200">
+      {/* 실시간 금융 데이터 Ticker */}
+      <div className="sticky top-0 z-50 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-slate-700 shadow-lg">
+        <FinancialTicker />
+      </div>
+
+      <header className="sticky top-[52px] z-10 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 text-indigo-600">
             <Activity size={24} strokeWidth={2.5} />
