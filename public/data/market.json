@@ -1,65 +1,82 @@
 {
-  "updatedAt": "2026-06-08T23:41:25.790917+09:00",
+  "updatedAt": "2026-06-08T23:55:33.246182+09:00",
   "stocks": [
     {
       "symbol": "NVDA",
-      "name": "NVIDIA",
+      "name": "NVIDIA Corporation",
       "country": "US",
       "countryLabel": "미국",
       "sector": "Technology",
-      "sectorLabel": "기술",
-      "marketCap": 5043538886656,
-      "currency": "USD",
-      "changePercent": 1.54,
-      "price": 208.25
+      "marketCap": 5042085560320,
+      "changePercent": 1.5,
+      "price": 208.17,
+      "weight": "medium"
     },
     {
       "symbol": "AAPL",
-      "name": "Apple",
+      "name": "Apple Inc.",
       "country": "US",
       "countryLabel": "미국",
       "sector": "Technology",
-      "sectorLabel": "기술",
-      "marketCap": 4593471717376,
-      "currency": "USD",
-      "changePercent": 1.76,
-      "price": 312.76
+      "marketCap": 4617411231744,
+      "changePercent": 2.29,
+      "price": 314.38,
+      "weight": "medium"
     },
     {
       "symbol": "GOOGL",
-      "name": "Alphabet",
+      "name": "Alphabet Inc.",
       "country": "US",
       "countryLabel": "미국",
-      "sector": "Technology",
-      "sectorLabel": "기술",
-      "marketCap": 4404688715776,
-      "currency": "USD",
-      "changePercent": -1.99,
-      "price": 361.19
+      "sector": "Communication Services",
+      "marketCap": 4430602698752,
+      "changePercent": -1.42,
+      "price": 363.32,
+      "weight": "medium"
     },
     {
       "symbol": "MSFT",
-      "name": "Microsoft",
+      "name": "Microsoft Corporation",
       "country": "US",
       "countryLabel": "미국",
       "sector": "Technology",
-      "sectorLabel": "기술",
-      "marketCap": 3067646312448,
-      "currency": "USD",
-      "changePercent": -0.9,
-      "price": 412.91
+      "marketCap": 3062595059712,
+      "changePercent": -1.05,
+      "price": 412.28,
+      "weight": "medium"
     },
     {
       "symbol": "AMZN",
-      "name": "Amazon",
+      "name": "Amazon.com, Inc.",
       "country": "US",
       "countryLabel": "미국",
-      "sector": "Consumer",
-      "sectorLabel": "소비재",
-      "marketCap": 2652918251520,
-      "currency": "USD",
-      "changePercent": 0.24,
-      "price": 246.62
+      "sector": "Consumer Cyclical",
+      "marketCap": 2652595552256,
+      "changePercent": 0.23,
+      "price": 246.59,
+      "weight": "medium"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla, Inc.",
+      "country": "US",
+      "countryLabel": "미국",
+      "sector": "Consumer Cyclical",
+      "marketCap": 1516861784064,
+      "changePercent": 3.29,
+      "price": 403.88,
+      "weight": "medium"
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms, Inc.",
+      "country": "US",
+      "countryLabel": "미국",
+      "sector": "Communication Services",
+      "marketCap": 1494953623552,
+      "changePercent": -0.69,
+      "price": 588.93,
+      "weight": "medium"
     },
     {
       "symbol": "005930.KS",
@@ -67,11 +84,21 @@
       "country": "KR",
       "countryLabel": "한국",
       "sector": "Technology",
-      "sectorLabel": "기술",
-      "marketCap": 1437347790047,
-      "currency": "KRW",
+      "marketCap": 1437347790047.0044,
       "changePercent": -10.18,
-      "price": 295500.0
+      "price": 295500.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "BRK-B",
+      "name": "Berkshire Hathaway Inc. New",
+      "country": "US",
+      "countryLabel": "미국",
+      "sector": "Financial Services",
+      "marketCap": 1053321068544,
+      "changePercent": 0.05,
+      "price": 488.36,
+      "weight": "medium"
     },
     {
       "symbol": "000660.KS",
@@ -79,47 +106,120 @@
       "country": "KR",
       "countryLabel": "한국",
       "sector": "Technology",
-      "sectorLabel": "기술",
-      "marketCap": 1004839015789,
-      "currency": "KRW",
+      "marketCap": 1004839015789.606,
       "changePercent": -7.68,
-      "price": 1911000.0
+      "price": 1911000.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "JPM",
+      "name": "JP Morgan Chase & Co.",
+      "country": "US",
+      "countryLabel": "미국",
+      "sector": "Financial Services",
+      "marketCap": 837521440768,
+      "changePercent": 0.06,
+      "price": 312.57,
+      "weight": "medium"
+    },
+    {
+      "symbol": "V",
+      "name": "Visa Inc.",
+      "country": "US",
+      "countryLabel": "미국",
+      "sector": "Financial Services",
+      "marketCap": 610421702656,
+      "changePercent": -0.8,
+      "price": 320.98,
+      "weight": "medium"
     },
     {
       "symbol": "005380.KS",
       "name": "현대차",
       "country": "KR",
       "countryLabel": "한국",
-      "sector": "Consumer",
-      "sectorLabel": "소비재",
-      "marketCap": 123934798327,
-      "currency": "KRW",
+      "sector": "Consumer Cyclical",
+      "marketCap": 123934798327.6563,
       "changePercent": -8.71,
-      "price": 639000.0
+      "price": 639000.0,
+      "weight": "medium"
     },
     {
       "symbol": "373220.KS",
-      "name": "LG에너지솔루션",
+      "name": "LG엔솔",
       "country": "KR",
       "countryLabel": "한국",
-      "sector": "Industrial",
-      "sectorLabel": "산업재",
-      "marketCap": 67339998112,
-      "currency": "KRW",
+      "sector": "Industrials",
+      "marketCap": 67339998112.42667,
       "changePercent": -6.16,
-      "price": 388500.0
+      "price": 388500.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "000270.KS",
+      "name": "기아",
+      "country": "KR",
+      "countryLabel": "한국",
+      "sector": "Consumer Cyclical",
+      "marketCap": 43587054930.29926,
+      "changePercent": -6.02,
+      "price": 151400.0,
+      "weight": "medium"
     },
     {
       "symbol": "207940.KS",
-      "name": "삼성바이오로직스",
+      "name": "삼성바이오",
       "country": "KR",
       "countryLabel": "한국",
       "sector": "Healthcare",
-      "sectorLabel": "헬스케어",
-      "marketCap": 42621964221,
-      "currency": "KRW",
+      "marketCap": 42621964221.250374,
       "changePercent": -7.24,
-      "price": 1243000.0
+      "price": 1243000.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "105560.KS",
+      "name": "KB금융",
+      "country": "KR",
+      "countryLabel": "한국",
+      "sector": "Financial Services",
+      "marketCap": 39803845539.46074,
+      "changePercent": -11.71,
+      "price": 151500.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "055550.KS",
+      "name": "신한지주",
+      "country": "KR",
+      "countryLabel": "한국",
+      "sector": "Financial Services",
+      "marketCap": 33867355040.426666,
+      "changePercent": -9.67,
+      "price": 97100.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "035420.KS",
+      "name": "NAVER",
+      "country": "KR",
+      "countryLabel": "한국",
+      "sector": "Communication Services",
+      "marketCap": 30893528259.697777,
+      "changePercent": 9.2,
+      "price": 279000.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "068270.KS",
+      "name": "셀트리온",
+      "country": "KR",
+      "countryLabel": "한국",
+      "sector": "Healthcare",
+      "marketCap": 27077600190.767406,
+      "changePercent": -7.0,
+      "price": 159400.0,
+      "weight": "medium"
     }
   ]
 }
