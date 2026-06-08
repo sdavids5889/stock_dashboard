@@ -1,23 +1,21 @@
 ---
+// src/pages/index.astro
 import { getCollection } from 'astro:content';
 
-// 1. 수집된 모든 마크다운 글 가져오기
 const allPosts = await getCollection('blog');
-
-// 2. 최신 날짜 순(pubDate 내림차순)으로 전체 정렬
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// 3. [기획 반영] 한국 시간(KST) 기준 안전하게 '오늘' 날짜 문자열(YYYY. M. D.) 생성
+// 1. 한국 시간(KST) 기준 오늘 날짜 구하기
 const todayStr = new Date().toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
 
-// 4. [기획 반영] 오직 '오늘' 수집된 글만 정밀 필터링
+// 2. 오늘 수집된 글만 필터링
 const todayPosts = sortedPosts.filter(post => {
     const postDate = new Date(post.data.pubDate);
     const postDateStr = postDate.toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
     return postDateStr === todayStr;
 });
 
-// 5. [기획 반영] 오늘 글에서만 고유 태그 수집 (누락 방지 예외 처리 포함)
+// 3. 오늘 글에서만 태그 추출 (최대 10개 제한)
 const todayTags = new Set<string>();
 todayPosts.forEach(post => {
     if (post.data.tags && Array.isArray(post.data.tags)) {
@@ -25,7 +23,6 @@ todayPosts.forEach(post => {
     }
 });
 
-// 6. [기획 반영] 오늘 태그들을 정렬한 뒤 딱 '최대 10개'만 커트라인 적용
 const uniqueTags = Array.from(todayTags).sort().slice(0, 10);
 ---
 
