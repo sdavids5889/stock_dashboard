@@ -39,6 +39,7 @@ export interface DailyMarketData {
 }
 
 export interface HeatmapStock {
+  symbol: string; 
   name: string;
   change: string;
   weight: 'large' | 'medium' | 'small';
@@ -194,6 +195,7 @@ function buildRegion(
   };
 }
 
+// 💡 누락되었던 buildDailyEntry 함수가 정상적으로 포함되어 있습니다.
 function buildDailyEntry(
   dateKey: string,
   posts: BlogPost[],
@@ -255,6 +257,7 @@ function buildHeatmapData(stocks: MarketStock[]): HeatmapStock[] {
   const sorted = [...filtered].sort((a, b) => b.marketCap - a.marketCap);
 
   return sorted.map((stock, i) => ({
+    symbol: stock.symbol, 
     name: stock.name,
     change: formatChange(stock.changePercent),
     weight: i < 3 ? 'large' : i < 10 ? 'medium' : 'small',

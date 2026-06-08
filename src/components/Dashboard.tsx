@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Calendar,
   ChevronRight,
@@ -15,6 +15,9 @@ import type {
   DailyMarketData,
   HeatmapStock,
 } from '../lib/dashboardData';
+
+// HeatmapStock 타입에 API 조회를 위한 symbol 속성이 추가되었다고 가정합니다.
+// 예: { name: '삼성전자', symbol: '005930.KS', change: '-10.18%', ... }
 
 interface DashboardProps {
   todayTags: string[];
@@ -180,6 +183,52 @@ export default function Dashboard({
   const [selectedDateId, setSelectedDateId] = useState<string | null>(null);
   const [heatmapCountry, setHeatmapCountry] = useState('ALL');
   const [heatmapSector, setHeatmapSector] = useState('ALL');
+  
+  // 💡 [추가됨] 실시간 히트맵 데이터를 관리하는 상태값
+  const [liveHeatmapData, setLiveHeatmapData] = useState<HeatmapStock[]>(heatmapData);
+
+  // 💡 [추가됨] 마운트 시 Astro 백엔드 API를 호출하여 최신 종가/등락률 덮어쓰기
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchLiveHeatmap = async () => {
+      try {
+        const res = await fetch('/api/stocks');
+        const json = await res.json();
+
+        if (json.success && json.data && isMounted) {
+          const updatedHeatmap = liveHeatmapData.map(stock => {
+            // stock 객체 내부에 API 조회용 symbol(예: AAPL)이 존재한다고 가정합니다.
+            // 만약 symbol이 없다면 name으로 매칭을 시도합니다.
+            const targetSymbol = stock.symbol || stock.name;
+            const liveStock = json.data[targetSymbol as string];
+
+            if (liveStock && liveStock.changePercent !== undefined) {
+              const percent = liveStock.changePercent;
+              return {
+                ...stock,
+                change: `${percent > 0 ? '+' : ''}${percent.toFixed(2)}%`,
+              };
+            }
+            return stock;
+          });
+          setLiveHeatmapData(updatedHeatmap);
+        }
+      } catch (error) {
+        console.error('히트맵 실시간 연동 실패, 기존 데이터 유지:', error);
+      }
+    };
+
+    fetchLiveHeatmap();
+    
+    // 1분(60초)마다 데이터 갱신
+    const intervalId = setInterval(fetchLiveHeatmap, 60000);
+    
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
+  }, []);
 
   const handleCardClick = (id: string) => {
     setSelectedDateId(id);
@@ -188,7 +237,8 @@ export default function Dashboard({
 
   const selectedData = dailySummaries.find(d => d.id === selectedDateId);
 
-  const filteredHeatmap = heatmapData.filter(
+  // 💡 [추가됨] 정적 데이터(heatmapData) 대신 실시간 상태(liveHeatmapData)를 기반으로 필터링
+  const filteredHeatmap = liveHeatmapData.filter(
     stock =>
       (heatmapCountry === 'ALL' || stock.country === heatmapCountry) &&
       (heatmapSector === 'ALL' || stock.sector === heatmapSector),
