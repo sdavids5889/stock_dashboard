@@ -3,3 +3,4 @@ google-generativeai
 typing_extensions
 requests
 beautifulsoup4
+yfinance

@@ -1,150 +1,49 @@
 ---
-// src/pages/index.astro
+import '../styles/global.css';
 import { getCollection } from 'astro:content';
+import Dashboard from '../components/Dashboard';
+import { buildDashboardData } from '../lib/dashboardData';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const allPosts = await getCollection('blog');
-const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-// 1. 한국 시간(KST) 기준 오늘 날짜 구하기
 const todayStr = new Date().toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
 
-// 2. 오늘 수집된 글만 필터링
-const todayPosts = sortedPosts.filter(post => {
-    const postDate = new Date(post.data.pubDate);
-    const postDateStr = postDate.toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
-    return postDateStr === todayStr;
-});
+let marketStocks: import('../lib/dashboardData').MarketStock[] = [];
+try {
+  const marketPath = path.join(process.cwd(), 'public/data/market.json');
+  const raw = JSON.parse(fs.readFileSync(marketPath, 'utf-8'));
+  marketStocks = raw.stocks ?? [];
+} catch {
+  console.warn('market.json 로드 실패');
+}
 
-// 3. 오늘 글에서만 태그 추출 (최대 10개 제한)
-const todayTags = new Set<string>();
-todayPosts.forEach(post => {
-    if (post.data.tags && Array.isArray(post.data.tags)) {
-        post.data.tags.forEach(tag => todayTags.add(tag));
-    }
-});
-
-const uniqueTags = Array.from(todayTags).sort().slice(0, 10);
+const { todayTags, todayArticles, dailySummaries, heatmapData } = buildDashboardData(
+  allPosts,
+  marketStocks,
+  todayStr,
+);
 ---
 
 <html lang="ko">
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI 정보 수집 요약 대시보드</title>
-    <style>
-        body {
-            font-family: 'Pretendard', system-ui, -apple-system, sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
-            margin: 0;
-            padding: 2rem;
-        }
-        header {
-            margin-bottom: 2rem;
-        }
-        h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin: 0 0 0.5rem 0;
-        }
-        
-        /* 태그 섹션 스타일 */
-        .tag-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            padding: 1.2rem;
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        }
-        .tag-title {
-            width: 100%;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 0.6rem;
-        }
-        .tag-badge {
-            background: #f1f5f9;
-            color: #334155;
-            padding: 0.3rem 0.8rem;
-            border-radius: 9999px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid #e2e8f0;
-        }
-        .no-tags {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            font-style: italic;
-        }
-
-        /* 카드 그리드 스타일 */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        .card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
-            border: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-            color: #1e293b;
-        }
-        .card-desc {
-            font-size: 0.9rem;
-            color: #475569;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-        .card-footer {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>AI 정보 수집 요약 대시보드</h1>
-    </header>
-
-    <div class="tag-container">
-        <div class="tag-title">🔥 오늘의 실시간 핵심 키워드 (당일 최대 10개)</div>
-        {uniqueTags.length > 0 ? (
-            uniqueTags.map(tag => <span class="tag-badge">#{tag}</span>)
-        ) : (
-            <span class="no-tags">오늘 수집된 데이터에 포함된 태그가 없습니다.</span>
-        )}
-    </div>
-
-    <div class="grid">
-        {sortedPosts.map(post => (
-            <div class="card">
-                <div>
-                    <h2 class="card-title">{post.data.title}</h2>
-                    <p class="card-desc">{post.data.description || "요약 정보 요청 중..."}</p>
-                </div>
-                <div class="card-footer">
-                    <span>{new Date(post.data.pubDate).toLocaleDateString('ko-KR')}</span>
-                </div>
-            </div>
-        ))}
-    </div>
-</body>
+    <title>글로벌 마켓 요약</title>
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+  </head>
+  <body>
+    <Dashboard
+      client:load
+      todayTags={todayTags}
+      todayArticles={todayArticles}
+      dailySummaries={dailySummaries}
+      heatmapData={heatmapData}
+    />
+  </body>
 </html>

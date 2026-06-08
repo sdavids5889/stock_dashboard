@@ -26,3 +26,4 @@ pnpm-debug.log*
 
 # virtual environment for aider
 venv_aider/
+.venv/

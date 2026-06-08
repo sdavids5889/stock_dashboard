@@ -35,10 +35,13 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/collect_script.py
 
+      - name: Run Market Data Script
+        run: python scripts/market_script.py
+
       - name: Commit & Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: 패시브 파이프라인 자동 콘텐츠 추가 🤖"
-          file_pattern: 'src/content/blog/*.md'
+          file_pattern: 'src/content/blog/*.md public/data/market.json'
           commit_user_name: 'github-actions[bot]'
           commit_user_email: 'github-actions[bot]@users.noreply.github.com'
