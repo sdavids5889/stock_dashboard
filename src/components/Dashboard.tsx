@@ -16,9 +16,6 @@ import type {
   HeatmapStock,
 } from '../lib/dashboardData';
 
-// HeatmapStock 타입에 API 조회를 위한 symbol 속성이 추가되었다고 가정합니다.
-// 예: { name: '삼성전자', symbol: '005930.KS', change: '-10.18%', ... }
-
 interface DashboardProps {
   todayTags: string[];
   todayArticles: Article[];
@@ -184,10 +181,9 @@ export default function Dashboard({
   const [heatmapCountry, setHeatmapCountry] = useState('ALL');
   const [heatmapSector, setHeatmapSector] = useState('ALL');
   
-  // 💡 [추가됨] 실시간 히트맵 데이터를 관리하는 상태값
   const [liveHeatmapData, setLiveHeatmapData] = useState<HeatmapStock[]>(heatmapData);
 
-  // 💡 [추가됨] 마운트 시 Astro 백엔드 API를 호출하여 최신 종가/등락률 덮어쓰기
+  // 💡 [수정됨] 10초 간격 실시간 자동 갱신(Polling) 시스템 반영
   useEffect(() => {
     let isMounted = true;
 
@@ -197,32 +193,33 @@ export default function Dashboard({
         const json = await res.json();
 
         if (json.success && json.data && isMounted) {
-          const updatedHeatmap = liveHeatmapData.map(stock => {
-            // stock 객체 내부에 API 조회용 symbol(예: AAPL)이 존재한다고 가정합니다.
-            // 만약 symbol이 없다면 name으로 매칭을 시도합니다.
-            const targetSymbol = stock.symbol || stock.name;
-            const liveStock = json.data[targetSymbol as string];
+          // 함수형 상태 업데이트(prev => ...)를 사용하여 최신 데이터 누수 현상을 방지합니다.
+          setLiveHeatmapData(prevHeatmapData =>
+            prevHeatmapData.map(stock => {
+              const targetSymbol = stock.symbol || stock.name;
+              const liveStock = json.data[targetSymbol as string];
 
-            if (liveStock && liveStock.changePercent !== undefined) {
-              const percent = liveStock.changePercent;
-              return {
-                ...stock,
-                change: `${percent > 0 ? '+' : ''}${percent.toFixed(2)}%`,
-              };
-            }
-            return stock;
-          });
-          setLiveHeatmapData(updatedHeatmap);
+              if (liveStock && liveStock.changePercent !== undefined) {
+                const percent = liveStock.changePercent;
+                return {
+                  ...stock,
+                  change: `${percent > 0 ? '+' : ''}${percent.toFixed(2)}%`,
+                };
+              }
+              return stock;
+            })
+          );
         }
       } catch (error) {
         console.error('히트맵 실시간 연동 실패, 기존 데이터 유지:', error);
       }
     };
 
+    // 화면이 켜지자마자 즉시 실시간 데이터 동기화
     fetchLiveHeatmap();
     
-    // 1분(60초)마다 데이터 갱신
-    const intervalId = setInterval(fetchLiveHeatmap, 60000);
+    // 💡 10초(10000ms)마다 백그라운드에서 자동으로 최신 금융 데이터를 가져와 렌더링합니다.
+    const intervalId = setInterval(fetchLiveHeatmap, 10000);
     
     return () => {
       isMounted = false;
@@ -237,7 +234,6 @@ export default function Dashboard({
 
   const selectedData = dailySummaries.find(d => d.id === selectedDateId);
 
-  // 💡 [추가됨] 정적 데이터(heatmapData) 대신 실시간 상태(liveHeatmapData)를 기반으로 필터링
   const filteredHeatmap = liveHeatmapData.filter(
     stock =>
       (heatmapCountry === 'ALL' || stock.country === heatmapCountry) &&
