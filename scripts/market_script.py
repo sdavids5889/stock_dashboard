@@ -9,35 +9,19 @@ KST = zoneinfo.ZoneInfo("Asia/Seoul")
 OUTPUT_PATH = "public/data/market.json"
 
 STOCKS = [
+    # 미국(US) 시총 상위 5개
     ("AAPL", "Apple", "US", "Technology"),
     ("MSFT", "Microsoft", "US", "Technology"),
+    ("NVDA", "NVIDIA", "US", "Technology"),
     ("GOOGL", "Alphabet", "US", "Technology"),
     ("AMZN", "Amazon", "US", "Consumer"),
-    ("NVDA", "NVIDIA", "US", "Technology"),
-    ("META", "Meta", "US", "Technology"),
-    ("TSLA", "Tesla", "US", "Consumer"),
-    ("BRK-B", "Berkshire Hathaway", "US", "Finance"),
-    ("JPM", "JPMorgan", "US", "Finance"),
-    ("V", "Visa", "US", "Finance"),
-    ("UNH", "UnitedHealth", "US", "Healthcare"),
-    ("JNJ", "Johnson & Johnson", "US", "Healthcare"),
-    ("XOM", "Exxon Mobil", "US", "Energy"),
-    ("PG", "Procter & Gamble", "US", "Consumer"),
+    
+    # 한국(KR) 시총 상위 5개
     ("005930.KS", "삼성전자", "KR", "Technology"),
     ("000660.KS", "SK하이닉스", "KR", "Technology"),
     ("373220.KS", "LG에너지솔루션", "KR", "Industrial"),
     ("207940.KS", "삼성바이오로직스", "KR", "Healthcare"),
     ("005380.KS", "현대차", "KR", "Consumer"),
-    ("000270.KS", "기아", "KR", "Consumer"),
-    ("035420.KS", "NAVER", "KR", "Technology"),
-    ("035720.KS", "카카오", "KR", "Technology"),
-    ("105560.KS", "KB금융", "KR", "Finance"),
-    ("055550.KS", "신한지주", "KR", "Finance"),
-    ("7203.T", "Toyota", "JP", "Consumer"),
-    ("6758.T", "Sony", "JP", "Technology"),
-    ("9984.T", "SoftBank", "JP", "Technology"),
-    ("BABA", "Alibaba", "CN", "Technology"),
-    ("TSM", "TSMC", "TW", "Technology"),
 ]
 
 COUNTRY_LABELS = {
