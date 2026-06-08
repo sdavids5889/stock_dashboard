@@ -4,103 +4,150 @@ import { getCollection } from 'astro:content';
 // 1. 수집된 모든 마크다운 글 가져오기
 const allPosts = await getCollection('blog');
 
-// 2. 최신 날짜 순(pubDate 내림차순)으로 정렬
+// 2. 최신 날짜 순(pubDate 내림차순)으로 전체 정렬
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// 모든 고유 태그 수집 및 정렬
-const allTags = new Set<string>();
-sortedPosts.forEach(post => {
-  post.data.tags.forEach(tag => allTags.add(tag));
+// 3. [기획 반영] 한국 시간(KST) 기준 안전하게 '오늘' 날짜 문자열(YYYY. M. D.) 생성
+const todayStr = new Date().toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
+
+// 4. [기획 반영] 오직 '오늘' 수집된 글만 정밀 필터링
+const todayPosts = sortedPosts.filter(post => {
+    const postDate = new Date(post.data.pubDate);
+    const postDateStr = postDate.toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
+    return postDateStr === todayStr;
 });
-const uniqueTags = Array.from(allTags).sort();
+
+// 5. [기획 반영] 오늘 글에서만 고유 태그 수집 (누락 방지 예외 처리 포함)
+const todayTags = new Set<string>();
+todayPosts.forEach(post => {
+    if (post.data.tags && Array.isArray(post.data.tags)) {
+        post.data.tags.forEach(tag => todayTags.add(tag));
+    }
+});
+
+// 6. [기획 반영] 오늘 태그들을 정렬한 뒤 딱 '최대 10개'만 커트라인 적용
+const uniqueTags = Array.from(todayTags).sort().slice(0, 10);
 ---
 
 <html lang="ko">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI 정보 수집 요약 대시보드</title>
     <style>
-      body { font-family: system-ui, sans-serif; background: #f8fafc; color: #0f172a; max-width: 1200px; margin: 0 auto; padding: 2rem; }
-      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-      .card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, opacity 0.3s ease-in-out, max-height 0.3s ease-in-out, padding 0.3s ease-in-out, margin 0.3s ease-in-out; overflow: hidden; }
-      .card:hover { transform: translateY(-4px); }
-      .card.hidden { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; transform: translateY(-10px); pointer-events: none; }
-      .title { font-size: 1.2rem; font-weight: bold; margin: 0 0 0.5rem 0; color: #1e293b; line-height: 1.4; }
-      .desc { font-size: 0.95rem; color: #64748b; line-height: 1.5; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-      .meta { font-size: 0.85rem; color: #94a3b8; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
-      .tag { background: #e2e8f0; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-right: 0.3rem; color: #475569; }
-      .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; margin-bottom: 1.5rem; }
-      .filter-tag { background: #e2e8f0; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease-in-out; color: #475569; border: none; }
-      .filter-tag:hover { background: #cbd5e1; }
-      .filter-tag.active { background: #3b82f6; color: white; font-weight: bold; }
+        body {
+            font-family: 'Pretendard', system-ui, -apple-system, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            margin: 0;
+            padding: 2rem;
+        }
+        header {
+            margin-bottom: 2rem;
+        }
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        /* 태그 섹션 스타일 */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 1.2rem;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .tag-title {
+            width: 100%;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 0.6rem;
+        }
+        .tag-badge {
+            background: #f1f5f9;
+            color: #334155;
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        .no-tags {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        /* 카드 그리드 스타일 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+            color: #1e293b;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        .card-footer {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <header>
-      <h1>AI 패시브 요약 대시보드</h1>
-      <p>매일 아침 자동으로 수집 및 요약되는 나만의 테크/트렌드 아카이브</p>
+        <h1>AI 정보 수집 요약 대시보드</h1>
     </header>
 
-    <nav class="filter-bar" aria-label="태그 필터">
-      <button class="filter-tag active" data-tag="all">전체보기</button>
-      {uniqueTags.map(tag => (
-        <button class="filter-tag" data-tag={tag}>{tag}</button>
-      ))}
-    </nav>
+    <div class="tag-container">
+        <div class="tag-title">🔥 오늘의 실시간 핵심 키워드 (당일 최대 10개)</div>
+        {uniqueTags.length > 0 ? (
+            uniqueTags.map(tag => <span class="tag-badge">#{tag}</span>)
+        ) : (
+            <span class="no-tags">오늘 수집된 데이터에 포함된 태그가 없습니다.</span>
+        )}
+    </div>
 
-    <main class="grid">
-      {sortedPosts.length === 0 ? (
-        <p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 3rem;">아직 수집된 데이터가 없습니다. GitHub Actions를 가동해 보세요!</p>
-      ) : (
-        sortedPosts.map(post => (
-          <article class="card">
-            <div>
-              <h2 class="title">
-                <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit;">{post.data.title}</a>
-              </h2>
-              <p class="desc">{post.data.description}</p>
-              <div style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                {post.data.tags.map((tag: string) => <span class="tag">#{tag}</span>)}
-              </div>
+    <div class="grid">
+        {sortedPosts.map(post => (
+            <div class="card">
+                <div>
+                    <h2 class="card-title">{post.data.title}</h2>
+                    <p class="card-desc">{post.data.description || "요약 정보 요청 중..."}</p>
+                </div>
+                <div class="card-footer">
+                    <span>{new Date(post.data.pubDate).toLocaleDateString('ko-KR')}</span>
+                </div>
             </div>
-            <div class="meta">
-              <span>📅 {post.data.pubDate.toLocaleDateString('ko-KR')}</span>
-              <a href={post.data.sourceUrl} target="_blank" rel="noopener noreferrer" style="color: #3b82f6; text-decoration: none; font-weight: 500;">원문 보기 ↗</a>
-            </div>
-          </article>
-        ))
-      )}
-    </main>
-
-    <script is:inline>
-      document.addEventListener('DOMContentLoaded', () => {
-        const filterButtons = document.querySelectorAll('.filter-tag');
-        const articleCards = document.querySelectorAll('.card');
-
-        filterButtons.forEach(button => {
-          button.addEventListener('click', (event) => {
-            const selectedTag = event.target.dataset.tag;
-
-            // 모든 버튼의 active 클래스를 제거하고 클릭된 버튼에 추가
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            articleCards.forEach(card => {
-              const tagsContainer = card.querySelector('div[style*="margin-top: 0.5rem; margin-bottom: 1rem;"]');
-              if (tagsContainer) {
-                const cardTags = Array.from(tagsContainer.querySelectorAll('.tag')).map(tagSpan => tagSpan.textContent.replace('#', ''));
-
-                if (selectedTag === 'all' || cardTags.includes(selectedTag)) {
-                  card.classList.remove('hidden');
-                } else {
-                  card.classList.add('hidden');
-                }
-              }
-            });
-          });
-        });
-      });
-    </script>
-  </body>
+        ))}
+    </div>
+</body>
 </html>
