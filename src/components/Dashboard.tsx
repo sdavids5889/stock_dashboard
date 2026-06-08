@@ -16,6 +16,11 @@ import type {
   HeatmapStock,
 } from '../lib/dashboardData';
 
+// 💡 HeatmapStock 타입에 실시간 가격을 저장할 price 속성을 임시 확장합니다.
+interface LiveHeatmapStock extends HeatmapStock {
+  price?: string;
+}
+
 interface DashboardProps {
   todayTags: string[];
   todayArticles: Article[];
@@ -42,8 +47,9 @@ function ChangeText({ change }: { change: string }) {
   );
 }
 
-function HeatmapBlock({ data }: { data: HeatmapStock }) {
-  const { name, change, weight, country } = data;
+// 💡 [수정됨] HeatmapBlock 컴포넌트가 price(가격) 데이터도 함께 받아서 렌더링하도록 수정
+function HeatmapBlock({ data }: { data: LiveHeatmapStock }) {
+  const { name, change, weight, country, price } = data;
   const value = parseFloat(change.replace(/[^0-9.-]/g, ''));
 
   let bgClass = 'bg-slate-200 text-slate-700';
@@ -59,22 +65,29 @@ function HeatmapBlock({ data }: { data: HeatmapStock }) {
 
   const spanClass =
     weight === 'large'
-      ? 'col-span-2 row-span-2 min-h-[100px]'
+      ? 'col-span-2 row-span-2 min-h-[110px]'
       : weight === 'medium'
-        ? 'col-span-2 row-span-1 min-h-[50px]'
-        : 'col-span-1 row-span-1 min-h-[50px]';
+        ? 'col-span-2 row-span-1 min-h-[60px]'
+        : 'col-span-1 row-span-1 min-h-[60px]';
 
   return (
     <div
       className={`relative ${bgClass} ${spanClass} ${textClass} p-2 rounded-xl flex flex-col justify-center items-center shadow-inner hover:brightness-110 hover:scale-[1.02] transition-all cursor-default border border-black/5`}
     >
-      <div className="absolute top-1.5 left-2 text-[10px] opacity-50 font-bold tracking-tighter">
+      <div className="absolute top-1 left-2 text-[9px] opacity-60 font-bold tracking-tighter">
         {country}
       </div>
-      <span className="font-bold text-sm lg:text-base truncate w-full text-center tracking-tight px-1">
+      <span className="font-bold text-xs sm:text-sm lg:text-base truncate w-full text-center tracking-tight px-1">
         {name}
       </span>
-      <span className="text-xs sm:text-sm opacity-90 font-medium">{change}</span>
+      {/* 💡 [가격 UI 추가] 현재가가 존재하면 가독성 좋게 콤마를 찍어 보여줍니다. */}
+      {price && (
+        <span className="text-[10px] sm:text-xs opacity-75 font-mono mt-0.5">
+          {parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
+          <span className="text-[9px] opacity-80 ml-0.5">{country === 'KR' ? '원' : '$'}</span>
+        </span>
+      )}
+      <span className="text-[11px] sm:text-xs font-bold mt-0.5 opacity-95">{change}</span>
     </div>
   );
 }
@@ -181,9 +194,8 @@ export default function Dashboard({
   const [heatmapCountry, setHeatmapCountry] = useState('ALL');
   const [heatmapSector, setHeatmapSector] = useState('ALL');
   
-  const [liveHeatmapData, setLiveHeatmapData] = useState<HeatmapStock[]>(heatmapData);
+  const [liveHeatmapData, setLiveHeatmapData] = useState<LiveHeatmapStock[]>(heatmapData);
 
-  // 💡 [수정됨] 10초 간격 실시간 자동 갱신(Polling) 시스템 반영
   useEffect(() => {
     let isMounted = true;
 
@@ -193,7 +205,6 @@ export default function Dashboard({
         const json = await res.json();
 
         if (json.success && json.data && isMounted) {
-          // 함수형 상태 업데이트(prev => ...)를 사용하여 최신 데이터 누수 현상을 방지합니다.
           setLiveHeatmapData(prevHeatmapData =>
             prevHeatmapData.map(stock => {
               const targetSymbol = stock.symbol || stock.name;
@@ -203,6 +214,7 @@ export default function Dashboard({
                 const percent = liveStock.changePercent;
                 return {
                   ...stock,
+                  price: liveStock.current?.toString(), // 💡 [추가됨] 백엔드 응답에서 실시간 현재 가격 매핑
                   change: `${percent > 0 ? '+' : ''}${percent.toFixed(2)}%`,
                 };
               }
@@ -215,11 +227,8 @@ export default function Dashboard({
       }
     };
 
-    // 화면이 켜지자마자 즉시 실시간 데이터 동기화
     fetchLiveHeatmap();
-    
-    // 💡 10초(10000ms)마다 백그라운드에서 자동으로 최신 금융 데이터를 가져와 렌더링합니다.
-    const intervalId = setInterval(fetchLiveHeatmap, 10000);
+    const intervalId = setInterval(fetchLiveHeatmap, 10000); // 10초 주기 폴링
     
     return () => {
       isMounted = false;
@@ -242,7 +251,6 @@ export default function Dashboard({
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-indigo-100">
-      {/* 실시간 금융 데이터 Ticker */}
       <div className="sticky top-0 z-50 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-slate-700 shadow-lg">
         <FinancialTicker />
       </div>
@@ -269,7 +277,6 @@ export default function Dashboard({
               </p>
             </div>
 
-            {/* 오늘의 실시간 뉴스 — 전체 표시 */}
             {(todayArticles.length > 0 || todayTags.length > 0) && (
               <section className="mb-10">
                 <h3 className="text-lg font-bold text-slate-900 mb-3">📌 오늘의 실시간 정보</h3>
@@ -316,7 +323,6 @@ export default function Dashboard({
               </section>
             )}
 
-            {/* 지난 날짜 요약 카드 */}
             {dailySummaries.length > 0 && (
               <>
                 <h3 className="text-lg font-bold text-slate-900 mb-1">📅 지난 시장 요약</h3>
@@ -367,7 +373,6 @@ export default function Dashboard({
               </div>
             )}
 
-            {/* 히트맵 */}
             <div className="mt-12 pt-8 border-t border-slate-200">
               <div className="mb-6">
                 <h2 className="text-2xl font-bold text-slate-900 mb-2">오늘의 시장 히트맵</h2>
