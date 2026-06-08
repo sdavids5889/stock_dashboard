@@ -84,10 +84,10 @@ const FinancialTicker = () => {
 
   const { usdkrw, kospi, nasdaq } = data.data;
 
-  const renderTickerItem = (item: FinancialData) => {
+const renderTickerItem = (item: FinancialData) => {
+    // 💡 안전한 데이터 추출 로직
     const isPositive = item.changePercent >= 0;
-    const value = item.current || item.value;
-    const changeStr = typeof item.change === 'number' ? item.change.toFixed(2) : item.change;
+    const value = item.current || 0; // current가 없으면 0으로 초기화
     
     return (
       <div
@@ -95,10 +95,10 @@ const FinancialTicker = () => {
         className="flex items-center gap-2 px-3 py-1.5 bg-slate-700 rounded-lg hover:bg-slate-600 transition-colors"
       >
         <span className="font-semibold text-xs text-slate-100 whitespace-nowrap">
-          {item.symbol}
+          {item.symbol === 'KRW=X' ? 'USD/KRW' : item.symbol === '^KS11' ? 'KOSPI' : 'NASDAQ'}
         </span>
         <span className="text-xs font-medium text-slate-300 whitespace-nowrap">
-          {value?.toLocaleString('ko-KR', {
+          {value.toLocaleString('ko-KR', {
             minimumFractionDigits: value > 100 ? 0 : 2,
             maximumFractionDigits: value > 100 ? 0 : 2,
           })}
