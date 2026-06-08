@@ -47,47 +47,46 @@ function ChangeText({ change }: { change: string }) {
   );
 }
 
-// 💡 [수정됨] HeatmapBlock 컴포넌트가 price(가격) 데이터도 함께 받아서 렌더링하도록 수정
 function HeatmapBlock({ data }: { data: LiveHeatmapStock }) {
   const { name, change, weight, country, price } = data;
   const value = parseFloat(change.replace(/[^0-9.-]/g, ''));
 
-  let bgClass = 'bg-slate-200 text-slate-700';
-  let textClass = 'text-white';
+  // 1. 색상 강도 정의 (절댓값에 따른 5단계 세분화)
+  let bgClass = 'bg-slate-200 text-slate-800'; // 기본(0% 부근)
+  let textClass = 'text-slate-800';
 
-  if (value > 0) {
-    bgClass = value >= 3 ? 'bg-red-600' : value >= 1 ? 'bg-red-500' : 'bg-red-400';
-  } else if (value < 0) {
-    bgClass = value <= -3 ? 'bg-blue-600' : value <= -1 ? 'bg-blue-500' : 'bg-blue-400';
-  } else {
-    textClass = 'text-slate-700';
-  }
+  if (value >= 5) { bgClass = 'bg-red-700'; textClass = 'text-white'; }
+  else if (value >= 2) { bgClass = 'bg-red-500'; textClass = 'text-white'; }
+  else if (value > 0) { bgClass = 'bg-red-300'; textClass = 'text-slate-800'; }
+  else if (value <= -5) { bgClass = 'bg-blue-700'; textClass = 'text-white'; }
+  else if (value <= -2) { bgClass = 'bg-blue-500'; textClass = 'text-white'; }
+  else if (value < 0) { bgClass = 'bg-blue-300'; textClass = 'text-slate-800'; }
 
+  // 2. 체급별 사이즈 정의 (xlarge 추가)
   const spanClass =
-    weight === 'large'
-      ? 'col-span-2 row-span-2 min-h-[110px]'
-      : weight === 'medium'
-        ? 'col-span-2 row-span-1 min-h-[60px]'
-        : 'col-span-1 row-span-1 min-h-[60px]';
+       weight === 'large'
+        ? 'col-span-2 row-span-2 min-h-[110px]' // 특대 (시총 3~6위)
+        : weight === 'medium'
+          ? 'col-span-2 row-span-1 min-h-[60px]' // 중간 (시총 7~12위)
+          : 'col-span-1 row-span-1 min-h-[60px]'; // 소형 (기타)
 
   return (
     <div
-      className={`relative ${bgClass} ${spanClass} ${textClass} p-2 rounded-xl flex flex-col justify-center items-center shadow-inner hover:brightness-110 hover:scale-[1.02] transition-all cursor-default border border-black/5`}
+      className={`relative ${bgClass} ${spanClass} ${textClass} p-2 rounded-xl flex flex-col justify-center items-center shadow-sm hover:brightness-110 hover:scale-[1.01] transition-all cursor-default border border-black/5`}
     >
-      <div className="absolute top-1 left-2 text-[9px] opacity-60 font-bold tracking-tighter">
+      <div className="absolute top-1 left-2 text-[9px] opacity-60 font-bold tracking-tighter uppercase">
         {country}
       </div>
       <span className="font-bold text-xs sm:text-sm lg:text-base truncate w-full text-center tracking-tight px-1">
         {name}
       </span>
-      {/* 💡 [가격 UI 추가] 현재가가 존재하면 가독성 좋게 콤마를 찍어 보여줍니다. */}
       {price && (
-        <span className="text-[10px] sm:text-xs opacity-75 font-mono mt-0.5">
+        <span className={`text-[10px] sm:text-xs opacity-80 font-mono mt-0.5 ${value !== 0 ? '' : 'opacity-60'}`}>
           {parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
-          <span className="text-[9px] opacity-80 ml-0.5">{country === 'KR' ? '원' : '$'}</span>
+          <span className="text-[9px] ml-0.5">{country === 'KR' ? '원' : '$'}</span>
         </span>
       )}
-      <span className="text-[11px] sm:text-xs font-bold mt-0.5 opacity-95">{change}</span>
+      <span className="text-[11px] sm:text-xs font-bold mt-0.5 opacity-90">{change}</span>
     </div>
   );
 }
