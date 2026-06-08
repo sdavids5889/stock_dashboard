@@ -228,7 +228,7 @@ export default function Dashboard({
     };
 
     fetchLiveHeatmap();
-    const intervalId = setInterval(fetchLiveHeatmap, 10000); // 10초 주기 폴링
+    const intervalId = setInterval(fetchLiveHeatmap, 60000); // 10초 주기 폴링
     
     return () => {
       isMounted = false;

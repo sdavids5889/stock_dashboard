@@ -56,7 +56,7 @@ const FinancialTicker = () => {
     fetchData();
 
     // 30초마다 새로고침 (시장 시간 중에는 더 자주)
-    const interval = setInterval(fetchData, 30000);
+    const interval = setInterval(fetchData, 60000);
 
     return () => clearInterval(interval);
   }, []);
