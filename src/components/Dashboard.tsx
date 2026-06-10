@@ -199,32 +199,36 @@ export default function Dashboard({
     let isMounted = true;
 
     const fetchLiveHeatmap = async () => {
-      try {
-        const res = await fetch('/api/stocks');
-        const json = await res.json();
+  try {
+    const res = await fetch('/api/stocks');
+    const json = await res.json();
 
-        if (json.success && json.data && isMounted) {
-          setLiveHeatmapData(prevHeatmapData =>
-            prevHeatmapData.map(stock => {
-              const targetSymbol = stock.symbol || stock.name;
-              const liveStock = json.data[targetSymbol as string];
+    if (json.success && json.data && isMounted) {
+      setLiveHeatmapData(prevHeatmapData =>
+        prevHeatmapData.map(stock => {
+          // 💡 티커 기호(symbol)를 기준으로 매칭하되, 대문자 공백을 제거하여 안전하게 처리
+          const targetSymbol = (stock.symbol || stock.name || '').trim();
+          const liveStock = json.data[targetSymbol];
 
-              if (liveStock && liveStock.changePercent !== undefined) {
-                const percent = liveStock.changePercent;
-                return {
-                  ...stock,
-                  price: liveStock.current?.toString(), // 💡 [추가됨] 백엔드 응답에서 실시간 현재 가격 매핑
-                  change: `${percent > 0 ? '+' : ''}${percent.toFixed(2)}%`,
-                };
-              }
-              return stock;
-            })
-          );
-        }
-      } catch (error) {
-        console.error('히트맵 실시간 연동 실패, 기존 데이터 유지:', error);
-      }
-    };
+          if (liveStock && liveStock.current !== undefined) {
+            const percent = liveStock.changePercent ?? 0;
+            return {
+              ...stock,
+              price: liveStock.current.toString(), // 실시간 현재가 정상 반영
+              change: `${percent > 0 ? '+' : ''}${percent.toFixed(2)}%`,
+            };
+          }
+          
+          // 디버깅용 로그: 만약 특정 종목이 계속 매칭 안 된다면 터미널이나 브라우저 콘솔에서 확인 가능
+          // console.log(`실시간 매칭 실패 종목: ${targetSymbol}`);
+          return stock;
+        })
+      );
+    }
+  } catch (error) {
+    console.error('히트맵 실시간 연동 실패, 기존 데이터 유지:', error);
+  }
+};
 
     fetchLiveHeatmap();
     const intervalId = setInterval(fetchLiveHeatmap, 60000); // 10초 주기 폴링

@@ -17,10 +17,16 @@ export const GET: APIRoute = async () => {
     }
 
     const symbols = [
-      'KRW=X', '^KS11', '^IXIC', 
-      'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN', 
-      '005930.KS', '000660.KS', '373220.KS', '207940.KS', '005380.KS'
-    ];
+  'KRW=X', '^KS11', '^IXIC', // 환율 및 지수
+  
+  // 💡 미국 상위 10개 종목 전체 등록
+  'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN', 
+  'META', 'TSLA', 'BRK-B', 'JPM', 'V', 
+  
+  // 💡 한국 상위 10개 종목 전체 등록
+  '005930.KS', '000660.KS', '373220.KS', '207940.KS', '005380.KS',
+  '000270.KS', '068270.KS', '105560.KS', '035420.KS', '055550.KS'
+];
 
     const results = await yahooFinance.quote(symbols);
 
