@@ -1,6 +1,8 @@
+# scripts/requirements.txt
 feedparser
 google-generativeai
 typing_extensions
 requests
 beautifulsoup4
 yfinance
+pandas
