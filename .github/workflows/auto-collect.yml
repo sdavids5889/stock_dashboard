@@ -35,7 +35,10 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/collect_script.py
 
+      # 💡 [수정된 부분] 여기에 env 블록이 추가되었습니다.
       - name: Run Market Data Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/market_script.py
 
       - name: Commit & Push Changes
