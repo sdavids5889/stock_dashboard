@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
 import { TrendingUp, TrendingDown, Loader } from 'lucide-react';
 
-interface FinancialData {
+export interface FinancialData {
   symbol: string;
   current?: number;
   value?: number;
@@ -9,59 +8,27 @@ interface FinancialData {
   changePercent: number;
 }
 
-interface ApiResponse {
+export interface ApiResponse {
   success: boolean;
   data?: {
     usdkrw: FinancialData;
     kospi: FinancialData;
     nasdaq: FinancialData;
+    [key: string]: any; // 다른 주식 데이터도 포함될 수 있으므로 확장
   };
 }
 
-const FinancialTicker = () => {
-  const [data, setData] = useState<ApiResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+// 💡 부모(Dashboard)로부터 받을 Props 정의
+interface FinancialTickerProps {
+  tickerData: ApiResponse | null;
+  loading: boolean;
+  error: string | null;
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        // 클라이언트 사이드에서 /api/stocks 엔드포인트 호출
-        // 이 엔드포인트는 서버 측에서 무료 공개 API(open.er-api.com)를 호출함
-        const response = await fetch('/api/stocks');
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch financial data');
-        }
-        
-        const apiData: ApiResponse = await response.json();
-        
-        if (apiData.success && apiData.data) {
-          setData(apiData);
-        } else {
-          setError('데이터를 불러올 수 없습니다.');
-        }
-      } catch (err) {
-        console.error('Error fetching financial data:', err);
-        setError('데이터 불러오기 실패');
-      } finally {
-        setLoading(false);
-      }
-    };
+const FinancialTicker = ({ tickerData, loading, error }: FinancialTickerProps) => {
+  // 💡 기존에 있던 useState와 useEffect(fetch 로직)를 모두 제거했습니다!
 
-    // 초기 로드
-    fetchData();
-
-    // 30초마다 새로고침 (시장 시간 중에는 더 자주)
-    const interval = setInterval(fetchData, 60000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (loading && !data) {
+  if (loading && !tickerData) {
     return (
       <div className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300">
         <Loader size={16} className="animate-spin" />
@@ -70,24 +37,24 @@ const FinancialTicker = () => {
     );
   }
 
-  if (error && !data) {
+  if (error && !tickerData) {
     return (
       <div className="text-xs text-slate-400 px-4 py-2">
-        데이터 로드 실패
+        {error}
       </div>
     );
   }
 
-  if (!data?.data) {
+  if (!tickerData?.data) {
     return null;
   }
 
-  const { usdkrw, kospi, nasdaq } = data.data;
+  const { usdkrw, kospi, nasdaq } = tickerData.data;
 
-const renderTickerItem = (item: FinancialData) => {
-    // 💡 안전한 데이터 추출 로직
+  const renderTickerItem = (item: FinancialData) => {
+    if (!item) return null;
     const isPositive = item.changePercent >= 0;
-    const value = item.current || 0; // current가 없으면 0으로 초기화
+    const value = item.current || 0;
     
     return (
       <div
@@ -118,18 +85,15 @@ const renderTickerItem = (item: FinancialData) => {
   return (
     <div className="w-full overflow-x-auto">
       <div className="flex items-center gap-2 px-4 py-2 min-w-min">
-        {/* 제목 */}
         <span className="text-xs font-bold text-slate-400 whitespace-nowrap pr-3 border-r border-slate-600">
           📊 실시간
         </span>
 
-        {/* 데이터 아이템들 */}
         {renderTickerItem(usdkrw)}
         {renderTickerItem(kospi)}
         {renderTickerItem(nasdaq)}
 
-        {/* 로딩 인디케이터 (갱신 중) */}
-        {loading && data && (
+        {loading && tickerData && (
           <div className="ml-3 pl-3 border-l border-slate-600">
             <Loader size={14} className="animate-spin text-slate-500" />
           </div>
@@ -140,4 +104,3 @@ const renderTickerItem = (item: FinancialData) => {
 };
 
 export default FinancialTicker;
-

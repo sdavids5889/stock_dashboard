@@ -42,7 +42,7 @@ export interface HeatmapStock {
   symbol: string; 
   name: string;
   change: string;
-  weight: 'large' | 'medium' | 'small';
+  weight: 'xlarge' | 'large' | 'medium' | 'small';
   country: 'KR' | 'US';
   sector: string;
 }

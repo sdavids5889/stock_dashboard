@@ -10,13 +10,13 @@ import {
   LayoutGrid,
 } from 'lucide-react';
 import FinancialTicker from './FinancialTicker';
+import type { ApiResponse } from './FinancialTicker';
 import type {
   Article,
   DailyMarketData,
   HeatmapStock,
 } from '../lib/dashboardData';
 
-// 💡 HeatmapStock 타입에 실시간 가격을 저장할 price 속성을 임시 확장합니다.
 interface LiveHeatmapStock extends HeatmapStock {
   price?: string;
 }
@@ -51,8 +51,7 @@ function HeatmapBlock({ data }: { data: LiveHeatmapStock }) {
   const { name, change, weight, country, price } = data;
   const value = parseFloat(change.replace(/[^0-9.-]/g, ''));
 
-  // 1. 색상 강도 정의 (절댓값에 따른 5단계 세분화)
-  let bgClass = 'bg-slate-200 text-slate-800'; // 기본(0% 부근)
+  let bgClass = 'bg-slate-200 text-slate-800';
   let textClass = 'text-slate-800';
 
   if (value >= 5) { bgClass = 'bg-red-700'; textClass = 'text-white'; }
@@ -62,13 +61,12 @@ function HeatmapBlock({ data }: { data: LiveHeatmapStock }) {
   else if (value <= -2) { bgClass = 'bg-blue-500'; textClass = 'text-white'; }
   else if (value < 0) { bgClass = 'bg-blue-300'; textClass = 'text-slate-800'; }
 
-  // 2. 체급별 사이즈 정의 (xlarge 추가)
   const spanClass =
-       weight === 'large'
-        ? 'col-span-2 row-span-2 min-h-[110px]' // 특대 (시총 3~6위)
+       weight === 'large' || weight === 'xlarge'
+        ? 'col-span-2 row-span-2 min-h-[110px]'
         : weight === 'medium'
-          ? 'col-span-2 row-span-1 min-h-[60px]' // 중간 (시총 7~12위)
-          : 'col-span-1 row-span-1 min-h-[60px]'; // 소형 (기타)
+          ? 'col-span-2 row-span-1 min-h-[60px]'
+          : 'col-span-1 row-span-1 min-h-[60px]';
 
   return (
     <div
@@ -194,44 +192,52 @@ export default function Dashboard({
   const [heatmapSector, setHeatmapSector] = useState('ALL');
   
   const [liveHeatmapData, setLiveHeatmapData] = useState<LiveHeatmapStock[]>(heatmapData);
+  const [tickerData, setTickerData] = useState<ApiResponse | null>(null);
+  const [isLiveLoading, setIsLiveLoading] = useState(true);
+  const [liveError, setLiveError] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
-    const fetchLiveHeatmap = async () => {
-  try {
-    const res = await fetch('/api/stocks');
-    const json = await res.json();
+    const fetchLiveData = async () => {
+      try {
+        setIsLiveLoading(true);
+        const res = await fetch('/api/stocks');
+        const json = await res.json();
 
-    if (json.success && json.data && isMounted) {
-      setLiveHeatmapData(prevHeatmapData =>
-        prevHeatmapData.map(stock => {
-          // 💡 티커 기호(symbol)를 기준으로 매칭하되, 대문자 공백을 제거하여 안전하게 처리
-          const targetSymbol = (stock.symbol || stock.name || '').trim();
-          const liveStock = json.data[targetSymbol];
+        if (json.success && json.data && isMounted) {
+          setLiveHeatmapData(prevHeatmapData =>
+            prevHeatmapData.map(stock => {
+              const targetSymbol = (stock.symbol || stock.name || '').trim();
+              const liveStock = json.data[targetSymbol];
 
-          if (liveStock && liveStock.current !== undefined) {
-            const percent = liveStock.changePercent ?? 0;
-            return {
-              ...stock,
-              price: liveStock.current.toString(), // 실시간 현재가 정상 반영
-              change: `${percent > 0 ? '+' : ''}${percent.toFixed(2)}%`,
-            };
-          }
+              if (liveStock && liveStock.current !== undefined) {
+                const percent = liveStock.changePercent ?? 0;
+                return {
+                  ...stock,
+                  price: liveStock.current.toString(),
+                  change: `${percent > 0 ? '+' : ''}${percent.toFixed(2)}%`,
+                };
+              }
+              return stock;
+            })
+          );
           
-          // 디버깅용 로그: 만약 특정 종목이 계속 매칭 안 된다면 터미널이나 브라우저 콘솔에서 확인 가능
-          // console.log(`실시간 매칭 실패 종목: ${targetSymbol}`);
-          return stock;
-        })
-      );
-    }
-  } catch (error) {
-    console.error('히트맵 실시간 연동 실패, 기존 데이터 유지:', error);
-  }
-};
+          setTickerData(json);
+          setLiveError(null);
+        } else if (isMounted) {
+          setLiveError('데이터 형식 오류');
+        }
+      } catch (error) {
+        console.error('실시간 연동 실패:', error);
+        if (isMounted) setLiveError('통신 실패');
+      } finally {
+        if (isMounted) setIsLiveLoading(false);
+      }
+    };
 
-    fetchLiveHeatmap();
-    const intervalId = setInterval(fetchLiveHeatmap, 60000); // 10초 주기 폴링
+    fetchLiveData();
+    const intervalId = setInterval(fetchLiveData, 60000);
     
     return () => {
       isMounted = false;
@@ -255,7 +261,11 @@ export default function Dashboard({
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-indigo-100">
       <div className="sticky top-0 z-50 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-slate-700 shadow-lg">
-        <FinancialTicker />
+        <FinancialTicker 
+          tickerData={tickerData} 
+          loading={isLiveLoading} 
+          error={liveError} 
+        />
       </div>
 
       <header className="sticky top-[52px] z-10 bg-white/80 backdrop-blur-md border-b border-slate-200">
