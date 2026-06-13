@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-13T08:13:07.498790+09:00",
+  "updatedAt": "2026-06-14T08:00:13.779658+09:00",
   "stocks": [
     {
       "symbol": "005930.KS",
@@ -106,7 +106,7 @@
       "country": "KR",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 36922747518976,
+      "marketCap": 36946206261248,
       "changePercent": 10.27,
       "price": 247000.0,
       "weight": "medium"
