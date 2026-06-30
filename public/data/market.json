@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T07:51:53.197870+09:00",
+  "updatedAt": "2026-07-01T08:06:23.529787+09:00",
   "stocks": [
     {
       "symbol": "005930.KS",
@@ -7,9 +7,9 @@
       "country": "KR",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 2120999940128768,
-      "changePercent": -4.86,
-      "price": 323000.0,
+      "marketCap": 2193232163241984,
+      "changePercent": 3.41,
+      "price": 334000.0,
       "weight": "xlarge"
     },
     {
@@ -18,9 +18,9 @@
       "country": "KR",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 1865498643922944,
-      "changePercent": -1.68,
-      "price": 2628000.0,
+      "marketCap": 1881115547664384,
+      "changePercent": 0.84,
+      "price": 2650000.0,
       "weight": "xlarge"
     },
     {
@@ -29,9 +29,9 @@
       "country": "KR",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 130131536379904,
-      "changePercent": 3.43,
-      "price": 497000.0,
+      "marketCap": 129607869136896,
+      "changePercent": -0.4,
+      "price": 495000.0,
       "weight": "large"
     },
     {
@@ -40,9 +40,9 @@
       "country": "KR",
       "sector": "Industrials",
       "sectorLabel": "제조/기타",
-      "marketCap": 93717000093696,
-      "changePercent": 20.81,
-      "price": 400500.0,
+      "marketCap": 84707995811840,
+      "changePercent": -9.61,
+      "price": 362000.0,
       "weight": "large"
     },
     {
@@ -51,20 +51,9 @@
       "country": "KR",
       "sector": "Healthcare",
       "sectorLabel": "바이오",
-      "marketCap": 67029298053120,
-      "changePercent": 7.82,
-      "price": 1448000.0,
-      "weight": "large"
-    },
-    {
-      "symbol": "000270.KS",
-      "name": "KIA CORP.",
-      "country": "KR",
-      "sector": "Consumer Cyclical",
-      "sectorLabel": "자동차",
-      "marketCap": 54645036679168,
-      "changePercent": 3.92,
-      "price": 140600.0,
+      "marketCap": 64390715932672,
+      "changePercent": -3.94,
+      "price": 1391000.0,
       "weight": "large"
     },
     {
@@ -73,9 +62,20 @@
       "country": "KR",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 54515508183040,
-      "changePercent": 2.95,
-      "price": 153700.0,
+      "marketCap": 56395353292800,
+      "changePercent": 3.45,
+      "price": 159000.0,
+      "weight": "large"
+    },
+    {
+      "symbol": "000270.KS",
+      "name": "KIA CORP.",
+      "country": "KR",
+      "sector": "Consumer Cyclical",
+      "sectorLabel": "자동차",
+      "marketCap": 53634532376576,
+      "changePercent": -1.85,
+      "price": 138000.0,
       "weight": "medium"
     },
     {
@@ -84,9 +84,9 @@
       "country": "KR",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 45391324119040,
-      "changePercent": 5.24,
-      "price": 96400.0,
+      "marketCap": 45108804190208,
+      "changePercent": -0.62,
+      "price": 95800.0,
       "weight": "medium"
     },
     {
@@ -95,9 +95,9 @@
       "country": "KR",
       "sector": "Healthcare",
       "sectorLabel": "바이오",
-      "marketCap": 41095434076160,
-      "changePercent": 8.02,
-      "price": 179200.0,
+      "marketCap": 39742401937408,
+      "changePercent": -3.29,
+      "price": 173300.0,
       "weight": "medium"
     },
     {
@@ -106,9 +106,9 @@
       "country": "KR",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 30514274631680,
-      "changePercent": 3.87,
-      "price": 204000.0,
+      "marketCap": 29766375702528,
+      "changePercent": -2.45,
+      "price": 199000.0,
       "weight": "medium"
     },
     {
@@ -117,9 +117,9 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 4722368446464,
-      "changePercent": 1.27,
-      "price": 194.97,
+      "marketCap": 4846379859968,
+      "changePercent": 2.63,
+      "price": 200.09,
       "weight": "medium"
     },
     {
@@ -128,9 +128,9 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 4315439693824,
-      "changePercent": 4.82,
-      "price": 353.65,
+      "marketCap": 4360833335296,
+      "changePercent": 1.05,
+      "price": 357.37,
       "weight": "medium"
     },
     {
@@ -139,9 +139,9 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 4138015391744,
-      "changePercent": -0.72,
-      "price": 281.74,
+      "marketCap": 4249933053952,
+      "changePercent": 2.7,
+      "price": 289.36,
       "weight": "small"
     },
     {
@@ -150,9 +150,9 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 2737898258432,
-      "changePercent": -1.18,
-      "price": 368.57,
+      "marketCap": 2770954616832,
+      "changePercent": 1.21,
+      "price": 373.02,
       "weight": "small"
     },
     {
@@ -161,9 +161,9 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 2583212326912,
-      "changePercent": 3.2,
-      "price": 240.14,
+      "marketCap": 2563849584640,
+      "changePercent": -0.75,
+      "price": 238.34,
       "weight": "small"
     },
     {
@@ -172,9 +172,9 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 1546757210112,
-      "changePercent": 8.46,
-      "price": 411.84,
+      "marketCap": 1579657461760,
+      "changePercent": 2.13,
+      "price": 420.6,
       "weight": "small"
     },
     {
@@ -183,9 +183,9 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 1428116865024,
-      "changePercent": 2.24,
-      "price": 562.6,
+      "marketCap": 1429868380160,
+      "changePercent": 0.12,
+      "price": 563.29,
       "weight": "small"
     },
     {
@@ -194,9 +194,9 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 1069799440384,
-      "changePercent": -0.53,
-      "price": 496.0,
+      "marketCap": 1079268081664,
+      "changePercent": 0.89,
+      "price": 500.39,
       "weight": "small"
     },
     {
@@ -205,9 +205,9 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 882604244992,
-      "changePercent": 0.1,
-      "price": 329.39,
+      "marketCap": 877084409856,
+      "changePercent": -0.63,
+      "price": 327.33,
       "weight": "small"
     },
     {
@@ -216,9 +216,9 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 649730719744,
-      "changePercent": 1.61,
-      "price": 341.65,
+      "marketCap": 652469272576,
+      "changePercent": 0.42,
+      "price": 343.09,
       "weight": "small"
     }
   ]
