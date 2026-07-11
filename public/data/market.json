@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-11T07:56:26.984182+09:00",
+  "updatedAt": "2026-07-12T07:42:01.534943+09:00",
   "stocks": [
     {
       "symbol": "005930.KS",
@@ -60,8 +60,8 @@
       "symbol": "207940.KS",
       "name": "SAMSUNG BIOLOGICS",
       "country": "KR",
-      "sector": "Healthcare",
-      "sectorLabel": "바이오",
+      "sector": "기타",
+      "sectorLabel": "제조/기타",
       "marketCap": 64575877677056,
       "changePercent": 5.28,
       "price": 1395000.0,
