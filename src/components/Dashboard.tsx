@@ -8,6 +8,7 @@ import {
   TrendingDown,
   Tag,
   LayoutGrid,
+  Clock // 시간 표시를 위한 아이콘 추가
 } from 'lucide-react';
 import FinancialTicker from './FinancialTicker';
 import type { ApiResponse } from './FinancialTicker';
@@ -205,9 +206,15 @@ export default function Dashboard({
   const [tickerData, setTickerData] = useState<ApiResponse | null>(null);
   const [isLiveLoading, setIsLiveLoading] = useState(true);
   const [liveError, setLiveError] = useState<string | null>(null);
+  
+  // 마지막 업데이트 시간을 저장할 State 추가
+  const [lastUpdated, setLastUpdated] = useState<string>('');
 
   useEffect(() => {
     let isMounted = true;
+
+    // 초기 마운트 시에도 로컬 시간을 업데이트 해줍니다.
+    setLastUpdated(new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }));
 
     const fetchLiveData = async () => {
       try {
@@ -235,6 +242,8 @@ export default function Dashboard({
           
           setTickerData(json);
           setLiveError(null);
+          // 통신 성공 시 마지막 업데이트 시간 갱신
+          setLastUpdated(new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }));
         } else if (isMounted) {
           setLiveError('데이터 형식 오류');
         }
@@ -247,7 +256,7 @@ export default function Dashboard({
     };
 
     fetchLiveData();
-    const intervalId = setInterval(fetchLiveData, 60000);
+    const intervalId = setInterval(fetchLiveData, 60000); // 1분마다 갱신
     
     return () => {
       isMounted = false;
@@ -299,8 +308,18 @@ export default function Dashboard({
             <Activity size={24} strokeWidth={2.5} />
             <h1 className="text-xl font-bold tracking-tight">글로벌 마켓 요약</h1>
           </div>
-          <div className="text-sm text-slate-500 font-medium hidden sm:block">
-            매일 업데이트되는 핵심 시장 정보
+          
+          <div className="flex items-center gap-3">
+            {/* 마지막 업데이트 시간 표시 영역 */}
+            {lastUpdated && (
+              <div className="flex items-center text-xs font-medium text-slate-600 bg-slate-100 px-2.5 py-1.5 rounded-md shadow-sm border border-slate-200">
+                <Clock size={14} className="mr-1.5 opacity-70" />
+                업데이트: {lastUpdated}
+              </div>
+            )}
+            <div className="text-sm text-slate-500 font-medium hidden sm:block">
+              매일 업데이트되는 핵심 시장 정보
+            </div>
           </div>
         </div>
       </header>
