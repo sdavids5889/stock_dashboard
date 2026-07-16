@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, memo } from 'react';
 import {
   Calendar,
   ChevronRight,
@@ -28,13 +28,19 @@ interface DashboardProps {
   heatmapData: HeatmapStock[];
 }
 
+// --- [Utility] ---
 const isPositive = (changeStr: string) => changeStr.startsWith('+');
 
-function ChangeText({ change }: { change: string }) {
+// --- [Memoized Components] ---
+// 하위 컴포넌트들을 React.memo로 감싸서, 부모 상태가 변해도 props가 같으면 재렌더링을 방지합니다.
+
+const ChangeText = memo(function ChangeText({ change }: { change: string }) {
   const positive = isPositive(change);
   return (
     <span
-      className={`font-semibold ${positive ? 'text-red-500' : change === '—' ? 'text-slate-500' : 'text-blue-500'} flex items-center`}
+      className={`font-semibold ${
+        positive ? 'text-red-500' : change === '—' ? 'text-slate-500' : 'text-blue-500'
+      } flex items-center`}
     >
       {change !== '—' &&
         (positive ? (
@@ -45,9 +51,9 @@ function ChangeText({ change }: { change: string }) {
       {change}
     </span>
   );
-}
+});
 
-function HeatmapBlock({ data }: { data: LiveHeatmapStock }) {
+const HeatmapBlock = memo(function HeatmapBlock({ data }: { data: LiveHeatmapStock }) {
   const { name, change, weight, country, price } = data;
   const value = parseFloat(change.replace(/[^0-9.-]/g, ''));
 
@@ -87,9 +93,9 @@ function HeatmapBlock({ data }: { data: LiveHeatmapStock }) {
       <span className="text-[11px] sm:text-xs font-bold mt-0.5 opacity-90">{change}</span>
     </div>
   );
-}
+});
 
-function MarketSection({
+const MarketSection = memo(function MarketSection({
   flag,
   flagBg,
   flagColor,
@@ -179,8 +185,9 @@ function MarketSection({
       </div>
     </div>
   );
-}
+});
 
+// --- [Main Dashboard Component] ---
 export default function Dashboard({
   todayTags,
   todayArticles,
@@ -190,6 +197,9 @@ export default function Dashboard({
   const [selectedDateId, setSelectedDateId] = useState<string | null>(null);
   const [heatmapCountry, setHeatmapCountry] = useState('ALL');
   const [heatmapSector, setHeatmapSector] = useState('ALL');
+  
+  // 페이징 처리: 초기에는 6개의 카드만 보여줍니다.
+  const [visibleCount, setVisibleCount] = useState(6);
   
   const [liveHeatmapData, setLiveHeatmapData] = useState<LiveHeatmapStock[]>(heatmapData);
   const [tickerData, setTickerData] = useState<ApiResponse | null>(null);
@@ -250,13 +260,28 @@ export default function Dashboard({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const selectedData = dailySummaries.find(d => d.id === selectedDateId);
+  const handleLoadMore = () => {
+    // 더보기 클릭 시 6개씩 추가로 렌더링
+    setVisibleCount(prev => prev + 6);
+  };
 
-  const filteredHeatmap = liveHeatmapData.filter(
-    stock =>
-      (heatmapCountry === 'ALL' || stock.country === heatmapCountry) &&
-      (heatmapSector === 'ALL' || stock.sector === heatmapSector),
-  );
+  // 최적화: 히트맵 필터링 연산을 종속성이 변경될 때만 재계산하도록 useMemo 적용
+  const filteredHeatmap = useMemo(() => {
+    return liveHeatmapData.filter(
+      stock =>
+        (heatmapCountry === 'ALL' || stock.country === heatmapCountry) &&
+        (heatmapSector === 'ALL' || stock.sector === heatmapSector)
+    );
+  }, [liveHeatmapData, heatmapCountry, heatmapSector]);
+
+  const selectedData = useMemo(() => {
+    return dailySummaries.find(d => d.id === selectedDateId);
+  }, [dailySummaries, selectedDateId]);
+
+  // 최적화: 화면에 보여줄 카드 개수만큼만 자르기
+  const visibleSummaries = useMemo(() => {
+    return dailySummaries.slice(0, visibleCount);
+  }, [dailySummaries, visibleCount]);
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-indigo-100">
@@ -341,7 +366,7 @@ export default function Dashboard({
                 <h3 className="text-lg font-bold text-slate-900 mb-1">📅 지난 시장 요약</h3>
                 <p className="text-sm text-slate-500 mb-4">카드를 클릭하면 상세 내용을 볼 수 있습니다.</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {dailySummaries.map(data => (
+                  {visibleSummaries.map(data => (
                     <div
                       key={data.id}
                       onClick={() => handleCardClick(data.id)}
@@ -376,6 +401,18 @@ export default function Dashboard({
                     </div>
                   ))}
                 </div>
+
+                {/* 데이터가 화면에 보여진 개수보다 더 많이 남아있을 때만 더보기 버튼 렌더링 */}
+                {visibleCount < dailySummaries.length && (
+                  <div className="mt-8 flex justify-center">
+                    <button
+                      onClick={handleLoadMore}
+                      className="px-6 py-2.5 bg-white border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-slate-700 hover:text-indigo-600 font-semibold rounded-xl transition-colors shadow-sm flex items-center"
+                    >
+                      더 불러오기 ({visibleCount} / {dailySummaries.length})
+                    </button>
+                  </div>
+                )}
               </>
             )}
 
