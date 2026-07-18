@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-18T07:43:15.591712+09:00",
+  "updatedAt": "2026-07-19T07:43:15.851091+09:00",
   "stocks": [
     {
       "symbol": "005930.KS",
@@ -201,7 +201,7 @@
     },
     {
       "symbol": "JPM",
-      "name": "JP Morgan Chase & Co.",
+      "name": "JPM",
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
@@ -212,7 +212,7 @@
     },
     {
       "symbol": "V",
-      "name": "Visa Inc.",
+      "name": "V",
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
