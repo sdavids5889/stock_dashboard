@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T07:43:15.851091+09:00",
+  "updatedAt": "2026-07-20T07:45:05.914705+09:00",
   "stocks": [
     {
       "symbol": "005930.KS",
@@ -200,25 +200,25 @@
       "weight": "small"
     },
     {
-      "symbol": "JPM",
-      "name": "JPM",
-      "country": "US",
-      "sector": "Financial Services",
-      "sectorLabel": "금융",
-      "marketCap": 906712055808,
-      "changePercent": -0.6,
-      "price": 341.1,
-      "weight": "small"
-    },
-    {
       "symbol": "V",
-      "name": "V",
+      "name": "Visa Inc.",
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
       "marketCap": 681889234944,
       "changePercent": -1.8,
       "price": 358.56,
+      "weight": "small"
+    },
+    {
+      "symbol": "JPM",
+      "name": "JP Morgan Chase & Co.",
+      "country": "US",
+      "sector": "Financial Services",
+      "sectorLabel": "금융",
+      "marketCap": 0,
+      "changePercent": -0.6,
+      "price": 341.1,
       "weight": "small"
     }
   ]
