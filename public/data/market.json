@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-31T09:09:16.808040+09:00",
+  "updatedAt": "2026-09-01T09:57:08.023463+09:00",
   "stocks": [
     {
       "symbol": "NVDA",
@@ -7,9 +7,9 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 5253179637760,
-      "changePercent": -4.57,
-      "price": 217.55,
+      "marketCap": 5331174293504,
+      "changePercent": 1.48,
+      "price": 220.78,
       "weight": "xlarge"
     },
     {
@@ -18,9 +18,9 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 4665759498240,
-      "changePercent": 1.63,
-      "price": 319.7,
+      "marketCap": 4624166158336,
+      "changePercent": -0.89,
+      "price": 316.85,
       "weight": "xlarge"
     },
     {
@@ -29,9 +29,9 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 4238773059584,
-      "changePercent": 1.74,
-      "price": 346.59,
+      "marketCap": 4150228680704,
+      "changePercent": -2.09,
+      "price": 339.35,
       "weight": "large"
     },
     {
@@ -40,9 +40,9 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 3813240733696,
-      "changePercent": 1.68,
-      "price": 513.53,
+      "marketCap": 3766905208832,
+      "changePercent": -1.22,
+      "price": 507.29,
       "weight": "large"
     },
     {
@@ -51,9 +51,9 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 2873797378048,
-      "changePercent": 3.97,
-      "price": 266.43,
+      "marketCap": 2801960484864,
+      "changePercent": -2.5,
+      "price": 259.77,
       "weight": "large"
     },
     {
@@ -62,9 +62,9 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 1472509509632,
-      "changePercent": 1.21,
-      "price": 578.02,
+      "marketCap": 1458039816192,
+      "changePercent": -0.98,
+      "price": 572.34,
       "weight": "large"
     },
     {
@@ -73,9 +73,9 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 1377404715008,
-      "changePercent": -1.71,
-      "price": 348.75,
+      "marketCap": 1453236027392,
+      "changePercent": 5.51,
+      "price": 367.95,
       "weight": "medium"
     },
     {
@@ -84,9 +84,9 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 1081058459648,
-      "changePercent": 0.26,
-      "price": 505.0,
+      "marketCap": 1078981951488,
+      "changePercent": -0.19,
+      "price": 504.03,
       "weight": "medium"
     },
     {
@@ -95,9 +95,9 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 950620520448,
-      "changePercent": 0.96,
-      "price": 357.62,
+      "marketCap": 946367430656,
+      "changePercent": -0.45,
+      "price": 356.02,
       "weight": "medium"
     },
     {
@@ -106,9 +106,9 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 712465252352,
-      "changePercent": 0.51,
-      "price": 381.6,
+      "marketCap": 708301750272,
+      "changePercent": -0.58,
+      "price": 379.37,
       "weight": "medium"
     }
   ]
