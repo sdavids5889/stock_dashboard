@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T09:11:24.719182+09:00",
+  "updatedAt": "2026-09-25T09:12:50.867313+09:00",
   "stocks": [
     {
       "symbol": "005930.KS",
@@ -117,7 +117,7 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 5445389910016,
+      "marketCap": 5422933082112,
       "changePercent": NaN,
       "price": NaN,
       "weight": "medium"
@@ -128,7 +128,7 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 4918530277376,
+      "marketCap": 4902477103104,
       "changePercent": NaN,
       "price": NaN,
       "weight": "medium"
@@ -139,7 +139,7 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 4131638738944,
+      "marketCap": 4187040514048,
       "changePercent": NaN,
       "price": NaN,
       "weight": "small"
@@ -150,7 +150,7 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 3717153947648,
+      "marketCap": 3697401921536,
       "changePercent": NaN,
       "price": NaN,
       "weight": "small"
@@ -161,7 +161,7 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 2688704315392,
+      "marketCap": 2689890779136,
       "changePercent": NaN,
       "price": NaN,
       "weight": "small"
@@ -172,7 +172,7 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 1895599308800,
+      "marketCap": 1980915384320,
       "changePercent": NaN,
       "price": NaN,
       "weight": "small"
@@ -183,7 +183,18 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 1501301964800,
+      "marketCap": 1492691976192,
+      "changePercent": NaN,
+      "price": NaN,
+      "weight": "small"
+    },
+    {
+      "symbol": "BRK-B",
+      "name": "Berkshire Hathaway Inc. New",
+      "country": "US",
+      "sector": "Financial Services",
+      "sectorLabel": "금융",
+      "marketCap": 1081443745792,
       "changePercent": NaN,
       "price": NaN,
       "weight": "small"
@@ -194,7 +205,18 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 897217593344,
+      "marketCap": 899955556352,
+      "changePercent": NaN,
+      "price": NaN,
+      "weight": "small"
+    },
+    {
+      "symbol": "V",
+      "name": "Visa Inc.",
+      "country": "US",
+      "sector": "Financial Services",
+      "sectorLabel": "금융",
+      "marketCap": 690829197312,
       "changePercent": NaN,
       "price": NaN,
       "weight": "small"
