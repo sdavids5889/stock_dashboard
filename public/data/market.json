@@ -1,116 +1,6 @@
 {
-  "updatedAt": "2026-09-27T09:07:10.761626+09:00",
+  "updatedAt": "2026-09-28T09:15:44.363366+09:00",
   "stocks": [
-    {
-      "symbol": "005930.KS",
-      "name": "SamsungElec",
-      "country": "KR",
-      "sector": "Technology",
-      "sectorLabel": "기술",
-      "marketCap": 1874753895792640,
-      "changePercent": 3.25,
-      "price": 285500.0,
-      "weight": "xlarge"
-    },
-    {
-      "symbol": "000660.KS",
-      "name": "SK hynix",
-      "country": "KR",
-      "sector": "Technology",
-      "sectorLabel": "기술",
-      "marketCap": 1321749878669312,
-      "changePercent": 1.2,
-      "price": 1862000.0,
-      "weight": "xlarge"
-    },
-    {
-      "symbol": "005380.KS",
-      "name": "HyundaiMtr",
-      "country": "KR",
-      "sector": "Consumer Cyclical",
-      "sectorLabel": "자동차",
-      "marketCap": 92558348779520,
-      "changePercent": -1.94,
-      "price": 353500.0,
-      "weight": "large"
-    },
-    {
-      "symbol": "373220.KS",
-      "name": "LG Energy Solution",
-      "country": "KR",
-      "sector": "Industrials",
-      "sectorLabel": "제조/기타",
-      "marketCap": 82250997694464,
-      "changePercent": 0.29,
-      "price": 351500.0,
-      "weight": "large"
-    },
-    {
-      "symbol": "207940.KS",
-      "name": "SAMSUNG BIOLOGICS",
-      "country": "KR",
-      "sector": "Healthcare",
-      "sectorLabel": "바이오",
-      "marketCap": 63233440350208,
-      "changePercent": -1.8,
-      "price": 1366000.0,
-      "weight": "large"
-    },
-    {
-      "symbol": "105560.KS",
-      "name": "KBFinancialGroup",
-      "country": "KR",
-      "sector": "Financial Services",
-      "sectorLabel": "금융",
-      "marketCap": 60811577917440,
-      "changePercent": -1.42,
-      "price": 173200.0,
-      "weight": "large"
-    },
-    {
-      "symbol": "055550.KS",
-      "name": "ShinhanGroup",
-      "country": "KR",
-      "sector": "Financial Services",
-      "sectorLabel": "금융",
-      "marketCap": 51465473228800,
-      "changePercent": -3.45,
-      "price": 109300.0,
-      "weight": "medium"
-    },
-    {
-      "symbol": "000270.KS",
-      "name": "KIA CORP.",
-      "country": "KR",
-      "sector": "Consumer Cyclical",
-      "sectorLabel": "자동차",
-      "marketCap": 44850904825856,
-      "changePercent": -2.62,
-      "price": 115400.0,
-      "weight": "medium"
-    },
-    {
-      "symbol": "068270.KS",
-      "name": "Celltrion",
-      "country": "KR",
-      "sector": "Healthcare",
-      "sectorLabel": "바이오",
-      "marketCap": 40682643259392,
-      "changePercent": -0.62,
-      "price": 177400.0,
-      "weight": "medium"
-    },
-    {
-      "symbol": "035420.KS",
-      "name": "NAVER",
-      "country": "KR",
-      "sector": "Communication Services",
-      "sectorLabel": "기술",
-      "marketCap": 29166904803328,
-      "changePercent": -3.13,
-      "price": 194700.0,
-      "weight": "medium"
-    },
     {
       "symbol": "NVDA",
       "name": "NVIDIA Corporation",
@@ -120,7 +10,7 @@
       "marketCap": 5434765213696,
       "changePercent": 0.22,
       "price": 225.07,
-      "weight": "medium"
+      "weight": "xlarge"
     },
     {
       "symbol": "AAPL",
@@ -131,7 +21,7 @@
       "marketCap": 4977636933632,
       "changePercent": 1.53,
       "price": 341.07,
-      "weight": "medium"
+      "weight": "xlarge"
     },
     {
       "symbol": "GOOGL",
@@ -142,7 +32,7 @@
       "marketCap": 4206119354368,
       "changePercent": 0.46,
       "price": 343.92,
-      "weight": "small"
+      "weight": "large"
     },
     {
       "symbol": "MSFT",
@@ -153,7 +43,7 @@
       "marketCap": 3832843862016,
       "changePercent": 3.66,
       "price": 516.17,
-      "weight": "small"
+      "weight": "large"
     },
     {
       "symbol": "AMZN",
@@ -164,7 +54,7 @@
       "marketCap": 2693018681344,
       "changePercent": 0.12,
       "price": 249.67,
-      "weight": "small"
+      "weight": "large"
     },
     {
       "symbol": "META",
@@ -175,7 +65,7 @@
       "marketCap": 1914858373120,
       "changePercent": -3.33,
       "price": 751.66,
-      "weight": "small"
+      "weight": "large"
     },
     {
       "symbol": "TSLA",
@@ -186,7 +76,7 @@
       "marketCap": 1469666033664,
       "changePercent": -1.54,
       "price": 372.11,
-      "weight": "small"
+      "weight": "medium"
     },
     {
       "symbol": "BRK-B",
@@ -197,7 +87,7 @@
       "marketCap": 1082085998592,
       "changePercent": 0.06,
       "price": 505.48,
-      "weight": "small"
+      "weight": "medium"
     },
     {
       "symbol": "JPM",
@@ -208,7 +98,7 @@
       "marketCap": 911917383680,
       "changePercent": 1.33,
       "price": 343.06,
-      "weight": "small"
+      "weight": "medium"
     },
     {
       "symbol": "V",
@@ -219,7 +109,7 @@
       "marketCap": 689702764544,
       "changePercent": -0.16,
       "price": 367.38,
-      "weight": "small"
+      "weight": "medium"
     }
   ]
 }
