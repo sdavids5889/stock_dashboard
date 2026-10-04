@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-03T09:53:22.966951+09:00",
+  "updatedAt": "2026-10-04T09:18:48.972934+09:00",
   "stocks": [
     {
       "symbol": "005930.KS",
@@ -118,8 +118,8 @@
       "sector": "Technology",
       "sectorLabel": "기술",
       "marketCap": 5649190617088,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 1.34,
+      "price": 233.95,
       "weight": "medium"
     },
     {
@@ -129,8 +129,8 @@
       "sector": "Technology",
       "sectorLabel": "기술",
       "marketCap": 4869931925504,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 1.02,
+      "price": 333.69,
       "weight": "medium"
     },
     {
@@ -140,8 +140,8 @@
       "sector": "Communication Services",
       "sectorLabel": "기술",
       "marketCap": 4200982642688,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 1.56,
+      "price": 343.5,
       "weight": "small"
     },
     {
@@ -151,8 +151,8 @@
       "sector": "Technology",
       "sectorLabel": "기술",
       "marketCap": 3842942959616,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 0.92,
+      "price": 517.53,
       "weight": "small"
     },
     {
@@ -162,8 +162,8 @@
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
       "marketCap": 2712973606912,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 1.33,
+      "price": 251.52,
       "weight": "small"
     },
     {
@@ -173,8 +173,8 @@
       "sector": "Communication Services",
       "sectorLabel": "기술",
       "marketCap": 1854788337664,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 0.3,
+      "price": 728.08,
       "weight": "small"
     },
     {
@@ -184,8 +184,8 @@
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
       "marketCap": 1463662804992,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 4.65,
+      "price": 370.59,
       "weight": "small"
     },
     {
@@ -195,8 +195,8 @@
       "sector": "Financial Services",
       "sectorLabel": "금융",
       "marketCap": 1076027719680,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 0.43,
+      "price": 502.65,
       "weight": "small"
     },
     {
@@ -206,8 +206,8 @@
       "sector": "Financial Services",
       "sectorLabel": "금융",
       "marketCap": 883527974912,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -0.24,
+      "price": 332.38,
       "weight": "small"
     },
     {
@@ -217,8 +217,8 @@
       "sector": "Financial Services",
       "sectorLabel": "금융",
       "marketCap": 677086953472,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 0.23,
+      "price": 360.66,
       "weight": "small"
     }
   ]
