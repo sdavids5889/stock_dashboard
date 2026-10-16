@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-15T09:15:36.739214+09:00",
+  "updatedAt": "2026-10-16T09:05:03.250660+09:00",
   "stocks": [
     {
       "symbol": "NVDA",
@@ -7,7 +7,7 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 5343730991104,
+      "marketCap": 5245452681216,
       "changePercent": NaN,
       "price": NaN,
       "weight": "xlarge"
@@ -18,7 +18,7 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 5005219725312,
+      "marketCap": 4991209701376,
       "changePercent": NaN,
       "price": NaN,
       "weight": "xlarge"
@@ -29,7 +29,7 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 4251614707712,
+      "marketCap": 4270937866240,
       "changePercent": NaN,
       "price": NaN,
       "weight": "large"
@@ -40,7 +40,7 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 3962939637760,
+      "marketCap": 4005636341760,
       "changePercent": NaN,
       "price": NaN,
       "weight": "large"
@@ -51,7 +51,7 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 2740586545152,
+      "marketCap": 2747921072128,
       "changePercent": NaN,
       "price": NaN,
       "weight": "large"
@@ -62,7 +62,7 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 1878887628800,
+      "marketCap": 1876798734336,
       "changePercent": NaN,
       "price": NaN,
       "weight": "large"
@@ -73,7 +73,7 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 1450115858432,
+      "marketCap": 1431474012160,
       "changePercent": NaN,
       "price": NaN,
       "weight": "medium"
@@ -84,7 +84,7 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 1126762545152,
+      "marketCap": 1125328355328,
       "changePercent": NaN,
       "price": NaN,
       "weight": "medium"
@@ -95,7 +95,7 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 890369605632,
+      "marketCap": 891033485312,
       "changePercent": NaN,
       "price": NaN,
       "weight": "medium"
@@ -106,7 +106,7 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 734853136384,
+      "marketCap": 750472790016,
       "changePercent": NaN,
       "price": NaN,
       "weight": "medium"
