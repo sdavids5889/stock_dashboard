@@ -1,16 +1,126 @@
 {
-  "updatedAt": "2026-10-16T09:05:03.250660+09:00",
+  "updatedAt": "2026-10-17T09:06:45.577209+09:00",
   "stocks": [
+    {
+      "symbol": "005930.KS",
+      "name": "SamsungElec",
+      "country": "KR",
+      "sector": "Technology",
+      "sectorLabel": "기술",
+      "marketCap": 1403319360684032,
+      "changePercent": 2.62,
+      "price": 215500.0,
+      "weight": "xlarge"
+    },
+    {
+      "symbol": "000660.KS",
+      "name": "SK hynix",
+      "country": "KR",
+      "sector": "Technology",
+      "sectorLabel": "기술",
+      "marketCap": 927118351400960,
+      "changePercent": 0.79,
+      "price": 1272000.0,
+      "weight": "xlarge"
+    },
+    {
+      "symbol": "373220.KS",
+      "name": "LG Energy Solution",
+      "country": "KR",
+      "sector": "Industrials",
+      "sectorLabel": "제조/기타",
+      "marketCap": 94301996449792,
+      "changePercent": 0.12,
+      "price": 403000.0,
+      "weight": "large"
+    },
+    {
+      "symbol": "005380.KS",
+      "name": "HyundaiMtr",
+      "country": "KR",
+      "sector": "Consumer Cyclical",
+      "sectorLabel": "자동차",
+      "marketCap": 81692232515584,
+      "changePercent": 5.58,
+      "price": 312000.0,
+      "weight": "large"
+    },
+    {
+      "symbol": "207940.KS",
+      "name": "SAMSUNG BIOLOGICS",
+      "country": "KR",
+      "sector": "Healthcare",
+      "sectorLabel": "바이오",
+      "marketCap": 60426377232384,
+      "changePercent": 4.09,
+      "price": 1298000.0,
+      "weight": "large"
+    },
+    {
+      "symbol": "105560.KS",
+      "name": "KBFinancialGroup",
+      "country": "KR",
+      "sector": "Financial Services",
+      "sectorLabel": "금융",
+      "marketCap": 56176976855040,
+      "changePercent": 2.11,
+      "price": 160000.0,
+      "weight": "large"
+    },
+    {
+      "symbol": "068270.KS",
+      "name": "Celltrion",
+      "country": "KR",
+      "sector": "Healthcare",
+      "sectorLabel": "바이오",
+      "marketCap": 44237026492416,
+      "changePercent": 6.53,
+      "price": 194000.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "055550.KS",
+      "name": "ShinhanGroup",
+      "country": "KR",
+      "sector": "Financial Services",
+      "sectorLabel": "금융",
+      "marketCap": 43978728669184,
+      "changePercent": -0.85,
+      "price": 93400.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "000270.KS",
+      "name": "KIA CORP.",
+      "country": "KR",
+      "sector": "Consumer Cyclical",
+      "sectorLabel": "자동차",
+      "marketCap": 42829896220672,
+      "changePercent": 4.06,
+      "price": 110200.0,
+      "weight": "medium"
+    },
+    {
+      "symbol": "035420.KS",
+      "name": "NAVER",
+      "country": "KR",
+      "sector": "Communication Services",
+      "sectorLabel": "기술",
+      "marketCap": 26964779859968,
+      "changePercent": 3.69,
+      "price": 180000.0,
+      "weight": "medium"
+    },
     {
       "symbol": "NVDA",
       "name": "NVIDIA Corporation",
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 5245452681216,
+      "marketCap": 5170596937728,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "xlarge"
+      "weight": "medium"
     },
     {
       "symbol": "AAPL",
@@ -18,10 +128,10 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 4991209701376,
+      "marketCap": 5012516765696,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "xlarge"
+      "weight": "medium"
     },
     {
       "symbol": "GOOGL",
@@ -29,10 +139,10 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 4270937866240,
+      "marketCap": 4165393448960,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "large"
+      "weight": "small"
     },
     {
       "symbol": "MSFT",
@@ -40,10 +150,10 @@
       "country": "US",
       "sector": "Technology",
       "sectorLabel": "기술",
-      "marketCap": 4005636341760,
+      "marketCap": 3928485003264,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "large"
+      "weight": "small"
     },
     {
       "symbol": "AMZN",
@@ -51,10 +161,10 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 2747921072128,
+      "marketCap": 2696578334720,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "large"
+      "weight": "small"
     },
     {
       "symbol": "META",
@@ -62,10 +172,10 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 1876798734336,
+      "marketCap": 1807009841152,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "large"
+      "weight": "small"
     },
     {
       "symbol": "TSLA",
@@ -73,10 +183,10 @@
       "country": "US",
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
-      "marketCap": 1431474012160,
+      "marketCap": 1400983519232,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "medium"
+      "weight": "small"
     },
     {
       "symbol": "BRK-B",
@@ -84,10 +194,10 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 1125328355328,
+      "marketCap": 1138900467712,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "medium"
+      "weight": "small"
     },
     {
       "symbol": "JPM",
@@ -95,10 +205,10 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 891033485312,
+      "marketCap": 902160449536,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "medium"
+      "weight": "small"
     },
     {
       "symbol": "V",
@@ -106,10 +216,10 @@
       "country": "US",
       "sector": "Financial Services",
       "sectorLabel": "금융",
-      "marketCap": 750472790016,
+      "marketCap": 755841957888,
       "changePercent": NaN,
       "price": NaN,
-      "weight": "medium"
+      "weight": "small"
     }
   ]
 }
