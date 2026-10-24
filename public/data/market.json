@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-24T09:11:48.441302+09:00",
+  "updatedAt": "2026-10-25T08:56:52.021917+09:00",
   "stocks": [
     {
       "symbol": "005930.KS",
@@ -73,7 +73,7 @@
       "country": "KR",
       "sector": "Healthcare",
       "sectorLabel": "바이오",
-      "marketCap": 44328235827200,
+      "marketCap": 44327422132224,
       "changePercent": 0.05,
       "price": 194400.0,
       "weight": "medium"
@@ -118,8 +118,8 @@
       "sector": "Technology",
       "sectorLabel": "기술",
       "marketCap": 5094050889728,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -0.59,
+      "price": 210.96,
       "weight": "medium"
     },
     {
@@ -129,8 +129,8 @@
       "sector": "Technology",
       "sectorLabel": "기술",
       "marketCap": 5074761285632,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -0.14,
+      "price": 347.73,
       "weight": "medium"
     },
     {
@@ -140,8 +140,8 @@
       "sector": "Communication Services",
       "sectorLabel": "기술",
       "marketCap": 3916147458048,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -1.24,
+      "price": 320.21,
       "weight": "small"
     },
     {
@@ -151,8 +151,8 @@
       "sector": "Technology",
       "sectorLabel": "기술",
       "marketCap": 3894773022720,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": 0.66,
+      "price": 524.51,
       "weight": "small"
     },
     {
@@ -162,8 +162,8 @@
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
       "marketCap": 2675005718528,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -0.95,
+      "price": 248.0,
       "weight": "small"
     },
     {
@@ -173,8 +173,8 @@
       "sector": "Communication Services",
       "sectorLabel": "기술",
       "marketCap": 1637078401024,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -0.96,
+      "price": 642.62,
       "weight": "small"
     },
     {
@@ -184,8 +184,8 @@
       "sector": "Consumer Cyclical",
       "sectorLabel": "자동차",
       "marketCap": 1471285166080,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -0.63,
+      "price": 372.22,
       "weight": "small"
     },
     {
@@ -195,8 +195,8 @@
       "sector": "Financial Services",
       "sectorLabel": "금융",
       "marketCap": 1160671395840,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -0.87,
+      "price": 542.19,
       "weight": "small"
     },
     {
@@ -206,8 +206,8 @@
       "sector": "Financial Services",
       "sectorLabel": "금융",
       "marketCap": 880543858688,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -1.47,
+      "price": 331.58,
       "weight": "small"
     },
     {
@@ -217,8 +217,8 @@
       "sector": "Financial Services",
       "sectorLabel": "금융",
       "marketCap": 765810769920,
-      "changePercent": NaN,
-      "price": NaN,
+      "changePercent": -1.55,
+      "price": 407.92,
       "weight": "small"
     }
   ]
