@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-14T10:56:44.778398+09:00",
+  "updatedAt": "2026-11-15T10:29:26.778169+09:00",
   "stocks": [
     {
       "symbol": "005930.KS",
@@ -73,7 +73,7 @@
       "country": "KR",
       "sector": "Healthcare",
       "sectorLabel": "바이오",
-      "marketCap": 48796650176512,
+      "marketCap": 49039622012928,
       "changePercent": 2.15,
       "price": 214000.0,
       "weight": "medium"
@@ -172,9 +172,9 @@
       "country": "US",
       "sector": "Communication Services",
       "sectorLabel": "기술",
-      "marketCap": 1640694153216,
-      "changePercent": NaN,
-      "price": NaN,
+      "marketCap": 1640314437632,
+      "changePercent": 2.9,
+      "price": 641.69,
       "weight": "small"
     },
     {
